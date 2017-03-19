@@ -116,7 +116,7 @@ public class MainForm extends javax.swing.JFrame {
             //UIManager.setLookAndFeel("com.birosoft.liquid");
             //UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
             //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());//Default
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());//Mengikuti OS Sistem
+            UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");//Mengikuti OS Sistem
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
