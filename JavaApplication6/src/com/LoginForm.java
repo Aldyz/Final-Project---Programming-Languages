@@ -8,18 +8,22 @@ package com;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author aldo_
- */
+/*
+   @author Aldi, Vero, Vincent
+*/
 public class LoginForm extends javax.swing.JFrame {
-
-    /**
-     * Creates new form LoginForm
-     */
+    
+    //Creates new JFrame for IP Address
+    private JFrame jAddress = new JFrame();
+    private static String ipAddress;
+    
+    //Creates new LoginForm
     public LoginForm() {
+        
         initComponents();
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        //set the default close operation
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
@@ -133,13 +137,13 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+        // if the login failed
         JOptionPane.showMessageDialog(this, "Login Failed");
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        //exit from the program
+        System.exit(0);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -147,12 +151,10 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIpActionPerformed
-        // TODO add your handling code here:
-        IP ip = new IP();
-        ip.setVisible(true);
-        ip.setLocationRelativeTo(null);
-        ip.setTitle("IP Form");
+        //Show new window to input the IP and get the IP Addess
+        ipAddress = JOptionPane.showInputDialog(jAddress, "Please input the IP Address");
     }//GEN-LAST:event_btnIpActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -164,12 +166,9 @@ public class LoginForm extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("liquidInf".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+                   
+            
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
