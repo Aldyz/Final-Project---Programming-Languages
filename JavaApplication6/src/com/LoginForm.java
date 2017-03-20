@@ -5,6 +5,13 @@
  */
 package com;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Path;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -13,14 +20,33 @@ import javax.swing.JOptionPane;
 */
 public class LoginForm extends javax.swing.JFrame {
     
-    //Creates new JFrame for IP Address
-    private JFrame jAddress = new JFrame();
+    //to create IP Address window
+    JFrame jAddress = new JFrame();
+    //to hold the IP Address
     private static String ipAddress;
+    //to hold the Logo Path
+    private String photo;
+    
+    public void setImage(){
+        //initializing to the default photo
+        try{
+            BufferedImage img = null;
+            URL url = getClass().getResource("./Coffee.png");
+            img = ImageIO.read(new File(url.getPath()));
+            Image image = img.getScaledInstance(lblPic.getWidth(), lblPic.getHeight(), Image.SCALE_SMOOTH);
+            lblPic.setIcon(new ImageIcon(image));
+            lblPic.revalidate();
+            lblPic.repaint();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
     
     //Creates new LoginForm
     public LoginForm() {
         
         initComponents();
+        setImage();
         
         //set the default close operation
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,13 +62,14 @@ public class LoginForm extends javax.swing.JFrame {
     private void initComponents() {
 
         btnLogin = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        btnSignUp = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         chBoxRemember = new javax.swing.JCheckBox();
         btnIp = new javax.swing.JButton();
+        lblPic = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(240, 240));
@@ -56,10 +83,10 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnSignUp.setText("SignUp");
+        btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnSignUpActionPerformed(evt);
             }
         });
 
@@ -87,34 +114,38 @@ public class LoginForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(17, 17, 17)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(118, 118, 118)
+                            .addComponent(btnIp))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(41, 41, 41)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblPassword)
-                                .addComponent(lblUsername))
-                            .addGap(14, 14, 14)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(chBoxRemember)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(26, 26, 26)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblPassword)
+                                        .addComponent(lblUsername))
+                                    .addGap(14, 14, 14)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(chBoxRemember)
+                                        .addComponent(txtPassword)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(17, 17, 17)
+                                    .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(btnIp)))
+                        .addGap(26, 26, 26)
+                        .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,10 +155,10 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chBoxRemember)
-                .addGap(31, 31, 31)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnIp)
                 .addGap(6, 6, 6))
@@ -141,10 +172,12 @@ public class LoginForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Login Failed");
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         //exit from the program
-        System.exit(0);
-    }//GEN-LAST:event_btnCancelActionPerformed
+        SignUpForm signUp = new SignUpForm();
+        signUp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -189,11 +222,12 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnIp;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnSignUp;
     private javax.swing.JCheckBox chBoxRemember;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPic;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
