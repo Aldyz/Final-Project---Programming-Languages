@@ -22,6 +22,9 @@ public class LoginForm extends javax.swing.JFrame {
         
         initComponents();
         
+        //sets the program on the centre
+        this.setLocationRelativeTo(null);
+        
         //set the default close operation
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
