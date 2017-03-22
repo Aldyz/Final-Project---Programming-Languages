@@ -229,10 +229,10 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSignUp;
     private javax.swing.JCheckBox chBoxRemember;
-    private javax.swing.JPasswordField fldPassword;
+    private static javax.swing.JPasswordField fldPassword;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPic;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JTextField txtName;
+    private static javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }
