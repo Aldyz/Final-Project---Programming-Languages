@@ -60,9 +60,13 @@ public class FriendsForm extends javax.swing.JFrame {
         paneFriend = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        btnDelete = new javax.swing.JButton();
+        btnCreateGroup = new javax.swing.JButton();
         paneGroup = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
+        btnEdit = new javax.swing.JButton();
+        btnLeave = new javax.swing.JButton();
         paneAddFriend = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -89,21 +93,38 @@ public class FriendsForm extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jList1);
 
+        btnDelete.setText("Delete");
+
+        btnCreateGroup.setText("Create Group");
+
         javax.swing.GroupLayout paneFriendLayout = new javax.swing.GroupLayout(paneFriend);
         paneFriend.setLayout(paneFriendLayout);
         paneFriendLayout.setHorizontalGroup(
             paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+            .addGroup(paneFriendLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnDelete)
+                .addGap(18, 18, 18)
+                .addComponent(btnCreateGroup)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneFriendLayout.setVerticalGroup(
             paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+            .addGroup(paneFriendLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnCreateGroup))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         tabGroup.addTab("Friend List", paneFriend);
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList2MouseClicked(evt);
@@ -111,15 +132,31 @@ public class FriendsForm extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jList2);
 
+        btnEdit.setText("Edit Group");
+
+        btnLeave.setText("Leave Group");
+
         javax.swing.GroupLayout paneGroupLayout = new javax.swing.GroupLayout(paneGroup);
         paneGroup.setLayout(paneGroupLayout);
         paneGroupLayout.setHorizontalGroup(
             paneGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+            .addGroup(paneGroupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnEdit)
+                .addGap(18, 18, 18)
+                .addComponent(btnLeave)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneGroupLayout.setVerticalGroup(
             paneGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+            .addGroup(paneGroupLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(paneGroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEdit)
+                    .addComponent(btnLeave))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         tabGroup.addTab("Group List", paneGroup);
@@ -327,6 +364,10 @@ public class FriendsForm extends javax.swing.JFrame {
     private javax.swing.JTextArea TextArea1;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddFile;
+    private javax.swing.JButton btnCreateGroup;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnLeave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSend;
     private javax.swing.JList<String> jList1;
