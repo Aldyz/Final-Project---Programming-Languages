@@ -17,10 +17,12 @@ import java.util.ArrayList;
  */
 public class Server {
     
-    final int port = 8000;
-    static ArrayList<Socket> Connected;
-    static ArrayList<String> Users;
-    ServerSocket ss;
+    private static final int port = 8000;
+    public static ArrayList<Socket> Connected;
+    public static ArrayList<String> Users;
+    private static ServerSocket ss;
+    private static String input;
+    
     public Server(){
         Connected = new ArrayList<Socket>();
         Users = new ArrayList<String>();
@@ -37,7 +39,19 @@ public class Server {
                 Socket s = ss.accept();
                 System.out.println(s.getLocalAddress().getHostName()+"::"+s.getLocalAddress().getHostAddress()+" has connected.");
                 DataInputStream in = new DataInputStream(s.getInputStream());
-                Thread t = new Thread();
+                input = in.readUTF();
+                String[] array = input.split(" ");
+                if(input.startsWith("SIGNIN")){
+                    System.out.println(s.getLocalAddress().getHostName() + "::" + s.getLocalAddress().getHostAddress() + "is signing in.");
+                    
+                    
+                    Thread t = new Thread(new ClientManager(s));
+                    System.out.print("Thread going to start ------> ");
+                    t.start();
+                    System.out.println("Thread has started.");
+                }else if(input.startsWith("SIGNUP")){
+                    
+                }
             }
         }catch(IOException e){
             System.out.println(e.getMessage());
