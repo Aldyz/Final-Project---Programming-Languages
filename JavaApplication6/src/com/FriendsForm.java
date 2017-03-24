@@ -64,7 +64,7 @@ public class FriendsForm extends javax.swing.JFrame {
         btnCreateGroup = new javax.swing.JButton();
         paneGroup = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jGroup = new javax.swing.JList<>();
         btnEdit = new javax.swing.JButton();
         btnLeave = new javax.swing.JButton();
         paneAddFriend = new javax.swing.JPanel();
@@ -94,6 +94,11 @@ public class FriendsForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList1);
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnCreateGroup.setText("Create Group");
 
@@ -124,13 +129,13 @@ public class FriendsForm extends javax.swing.JFrame {
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jGroup.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jGroup.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList2MouseClicked(evt);
+                jGroupMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(jList2);
+        jScrollPane4.setViewportView(jGroup);
 
         btnEdit.setText("Edit Group");
 
@@ -322,13 +327,17 @@ public class FriendsForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jList1MouseClicked
 
-    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+    private void jGroupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGroupMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jList2MouseClicked
+    }//GEN-LAST:event_jGroupMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,30 +370,30 @@ public class FriendsForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TextArea1;
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAddFile;
-    private javax.swing.JButton btnCreateGroup;
-    private javax.swing.JButton btnDelete;
+    private static javax.swing.JTextArea TextArea1;
+    private static javax.swing.JButton btnAdd;
+    private static javax.swing.JButton btnAddFile;
+    private static javax.swing.JButton btnCreateGroup;
+    private static javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLeave;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnSend;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    private static javax.swing.JButton btnSearch;
+    private static javax.swing.JButton btnSend;
+    private static javax.swing.JList<String> jGroup;
+    private static javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblAddPhoto;
-    private javax.swing.JLabel lblId;
-    private javax.swing.JLabel lblName;
-    private javax.swing.JPanel paneAddFriend;
+    private static javax.swing.JLabel lblId;
+    private static javax.swing.JLabel lblName;
+    private static javax.swing.JPanel paneAddFriend;
     private javax.swing.JPanel paneFriend;
     private javax.swing.JPanel paneGroup;
     private javax.swing.JPanel paneLeft;
     private javax.swing.JPanel paneRight;
     private javax.swing.JTabbedPane tabGroup;
-    private javax.swing.JTextField txtChatField;
-    private javax.swing.JTextField txtId;
+    private static javax.swing.JTextField txtChatField;
+    private static javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }
