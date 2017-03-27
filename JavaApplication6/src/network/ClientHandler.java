@@ -7,6 +7,7 @@ package network;
 
 import Database.DatabaseFunction;
 import Database.FriendListHandler;
+import com.ConnectedUser;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class ClientHandler implements Runnable{
     String userName;
     DataInputStream in;
     DataOutputStream ou;
+    ConnectedUser user;
     
     public ClientHandler(Socket s){
         this.s = s;
@@ -50,8 +52,8 @@ public class ClientHandler implements Runnable{
                         if(check){
                             System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " has signed in as: " + array[1]);
                             userName = array[1];
-                            ChatServer.Connected.add(s);
-                            ChatServer.Users.add(array[1]);
+                            user = new ConnectedUser(userName, s);
+                            ChatServer.Connected.add(user);
                             break;
                         }else{
                             System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " failed  to sign in.");
@@ -61,6 +63,7 @@ public class ClientHandler implements Runnable{
                         boolean check = DatabaseFunction.SignUpChecker(array[1], array[3]);
                         if(check){
                             DatabaseFunction.Insert(array[1], array[2], array[3]);
+                            FriendListHandler.createList(array[1]);
                         }
                         ou.writeBoolean(check);
                         ou.flush();
@@ -69,6 +72,7 @@ public class ClientHandler implements Runnable{
                     
                     Thread.sleep(1000);
                 }
+                
                 
                 ou.writeUTF(FriendListHandler.getFriendList(userName));
                 ou.flush();
@@ -89,6 +93,14 @@ public class ClientHandler implements Runnable{
                     boolean check = DatabaseFunction.userCheck(array[1]);
                     ou.writeBoolean(check);
                     ou.flush();
+                }else if(input.startsWith("PROFILE")){
+                    
+                }else if(input.startsWith("BLOCK")){
+                    
+                }else if(input.startsWith("UNBLOCK")){
+                    
+                }else if(input.startsWith("CREATEGROUP")){
+                    
                 }
                 Thread.sleep(1000);
             }
@@ -97,8 +109,7 @@ public class ClientHandler implements Runnable{
         }catch(Exception e) {
             System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " " + e.getMessage());
         }finally{
-            ChatServer.Connected.remove(s);
-            ChatServer.Users.remove(userName);
+            ChatServer.Connected.remove(user);
         }    
         
     }

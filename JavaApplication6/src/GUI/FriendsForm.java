@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Database.ChatHistoryHandler;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -37,6 +39,12 @@ public class FriendsForm extends javax.swing.JFrame {
         setList();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        txtChatField.setEnabled(false);
+        btnBlock.setEnabled(false);
+        bttDltChat.setEnabled(false);
+        btnUnblock.setEnabled(false);
+        btnAddFile.setEnabled(false);
+        btnSend.setEnabled(false);
     }
     
     public void setList(){
@@ -86,7 +94,7 @@ public class FriendsForm extends javax.swing.JFrame {
         JFriendList = new javax.swing.JList<>();
         btnBlock = new javax.swing.JButton();
         bttDltChat = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnUnblock = new javax.swing.JButton();
         paneGroup = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jGroup = new javax.swing.JList<>();
@@ -106,8 +114,8 @@ public class FriendsForm extends javax.swing.JFrame {
         btnSend = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ChatText = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnProfile = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -130,7 +138,7 @@ public class FriendsForm extends javax.swing.JFrame {
 
         bttDltChat.setText("Delete Chat");
 
-        jButton1.setText("Unblock");
+        btnUnblock.setText("Unblock");
 
         javax.swing.GroupLayout paneFriendLayout = new javax.swing.GroupLayout(paneFriend);
         paneFriend.setLayout(paneFriendLayout);
@@ -143,7 +151,7 @@ public class FriendsForm extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addComponent(bttDltChat)
                 .addGap(38, 38, 38)
-                .addComponent(jButton1)
+                .addComponent(btnUnblock)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneFriendLayout.setVerticalGroup(
@@ -154,7 +162,7 @@ public class FriendsForm extends javax.swing.JFrame {
                 .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBlock)
                     .addComponent(bttDltChat)
-                    .addComponent(jButton1))
+                    .addComponent(btnUnblock))
                 .addGap(0, 24, Short.MAX_VALUE))
         );
 
@@ -173,6 +181,11 @@ public class FriendsForm extends javax.swing.JFrame {
         btnEdit.setText("Edit Group");
 
         btnLeave.setText("Leave Group");
+        btnLeave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeaveActionPerformed(evt);
+            }
+        });
 
         btnCreateGroup.setText("Create Group");
 
@@ -199,7 +212,7 @@ public class FriendsForm extends javax.swing.JFrame {
                     .addComponent(btnEdit)
                     .addComponent(btnLeave)
                     .addComponent(btnCreateGroup))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabGroup.addTab("Group List", paneGroup);
@@ -311,9 +324,14 @@ public class FriendsForm extends javax.swing.JFrame {
         ChatText.setRows(5);
         jScrollPane1.setViewportView(ChatText);
 
-        jButton2.setText("Setting");
+        btnProfile.setText("Profile");
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Logout");
+        btnLogout.setText("Logout");
 
         javax.swing.GroupLayout paneRightLayout = new javax.swing.GroupLayout(paneRight);
         paneRight.setLayout(paneRightLayout);
@@ -331,18 +349,18 @@ public class FriendsForm extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(paneRightLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jButton2)
+                .addComponent(btnProfile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btnLogout)
                 .addGap(71, 71, 71))
         );
         paneRightLayout.setVerticalGroup(
             paneRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneRightLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(paneRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnProfile)
+                    .addComponent(btnLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
@@ -378,19 +396,57 @@ public class FriendsForm extends javax.swing.JFrame {
 
     private void txtChatFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChatFieldActionPerformed
         // TODO add your handling code here:
+        ChatClient.sendMsg(JFriendList.getSelectedValue(), txtChatField.getText());
     }//GEN-LAST:event_txtChatFieldActionPerformed
 
     private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
         // TODO add your handling code here:
+        //when the photo label is clicked, new file menu is created
+        JFileChooser fc = new JFileChooser();
+
+        //set all the file that can be accepted to true
+        fc.setAcceptAllFileFilterUsed(true);
+
+        //how the jfilechooser frame
+        fc.showOpenDialog(this);
+        
+        File selectedFile;
+        
+        //if the user click open
+        if(fc.showOpenDialog(this) == 0){
+            selectedFile = fc.getSelectedFile();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No file was chosern");
+        }   
     }//GEN-LAST:event_btnAddFileActionPerformed
 
     private void JFriendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JFriendListMouseClicked
         // TODO add your handling code here:
         ChatText.setEnabled(true);
+        ChatText.setText(ChatHistoryHandler.getHistory(JFriendList.getSelectedValue()));
+        ChatText.setEnabled(true);
+        txtChatField.setEnabled(true);
+        btnBlock.setEnabled(true);
+        bttDltChat.setEnabled(true);
+        btnUnblock.setEnabled(true);
+        btnProfile.setEnabled(true);
+        btnLogout.setEnabled(true);
+        btnAddFile.setEnabled(true);
+        btnSend.setEnabled(true);
     }//GEN-LAST:event_JFriendListMouseClicked
 
     private void jGroupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGroupMouseClicked
         // TODO add your handling code here:
+        ChatText.setEnabled(true);
+        txtChatField.setEnabled(true);
+        btnBlock.setEnabled(true);
+        bttDltChat.setEnabled(true);
+        btnUnblock.setEnabled(true);
+        btnProfile.setEnabled(true);
+        btnLogout.setEnabled(true);
+        btnAddFile.setEnabled(false);
+        btnSend.setEnabled(true);
     }//GEN-LAST:event_jGroupMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -402,6 +458,7 @@ public class FriendsForm extends javax.swing.JFrame {
         }
         friendsList.addElement(friendAdd);
         JFriendList.setModel(friendsList);
+        ChatHistoryHandler.createHistory(friendAdd);
         reset();
         JOptionPane.showMessageDialog(this, friendAdd + " has been added.");
     }//GEN-LAST:event_btnAddActionPerformed
@@ -424,34 +481,57 @@ public class FriendsForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+        // TODO add your handling code here:
+        ProfileOpt jd = new ProfileOpt(this, true);
+    }//GEN-LAST:event_btnProfileActionPerformed
+
+    private void btnLeaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeaveActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showConfirmDialog(null, "Are you sure?", "Leave Group", JOptionPane.YES_NO_OPTION);
+    }//GEN-LAST:event_btnLeaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FriendsForm().setVisible(true);
-            }
-        });
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(FriendsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new FriendsForm().setVisible(true);
+//            }
+//        });
+//    }
+    
+    public static void main(String[] args) {
+        DefaultListModel<String> dfl = new DefaultListModel<String>();
+        dfl.addElement("Hello");
+        dfl.addElement("World");
+        JList<String> jl = new JList<String>();
+        jl.setModel(dfl);
+                jl.setSelectedIndex(1);
+        System.out.println(jl.getSelectedValue());
+        System.out.println(dfl.get(0));
+        System.out.println(dfl.getElementAt(0));
+        System.out.println(dfl.elementAt(0));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -463,12 +543,12 @@ public class FriendsForm extends javax.swing.JFrame {
     private static javax.swing.JButton btnCreateGroup;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLeave;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnProfile;
     private static javax.swing.JButton btnSearch;
     private static javax.swing.JButton btnSend;
+    private javax.swing.JButton btnUnblock;
     private javax.swing.JButton bttDltChat;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private static javax.swing.JList<String> jGroup;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

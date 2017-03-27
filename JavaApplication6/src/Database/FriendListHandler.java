@@ -38,8 +38,23 @@ public class FriendListHandler {
         try{
             FileWriter fw = new FileWriter("FriendsList\\" + user + "FriendsList.txt", true);
             PrintWriter pw = new PrintWriter(fw);
-            
+            FileWriter fw2 = new FileWriter("FriendsList\\" + friend + "FriendsList.txt", true);
+            PrintWriter pw2 = new PrintWriter(fw2);
+            pw2.println(user);
             pw.println(friend);
+            pw2.close();
+            fw2.close();
+            pw.close();
+            fw.close();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void createList(String user){
+        try{
+            FileWriter fw = new FileWriter("FriendsList\\" + user + "FriendsList.txt");
+            PrintWriter pw = new PrintWriter(fw);
             pw.close();
             fw.close();
         }catch(IOException e){

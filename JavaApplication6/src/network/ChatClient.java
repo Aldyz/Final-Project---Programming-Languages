@@ -47,6 +47,15 @@ public class ChatClient {
             IP = "";
     }
     
+    public static void sendMsg(String friend, String msg){
+        try{
+            ou.writeUTF("SEND " + friend + " " + msg);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void Connect(){
         try{
             s = new Socket();

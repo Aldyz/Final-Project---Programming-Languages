@@ -6,6 +6,7 @@
 package network;
 
 import Database.DatabaseFunction;
+import com.ConnectedUser;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.DataInputStream;
@@ -19,14 +20,12 @@ import java.util.ArrayList;
 public class ChatServer implements Runnable{
     
     private static final int port = 8000;
-    public static ArrayList<Socket> Connected;
-    public static ArrayList<String> Users;
+    public static ArrayList<ConnectedUser> Connected;
     private static ServerSocket ss;
     private static Socket s;
     
     public ChatServer(){
-        Connected = new ArrayList<Socket>();
-        Users = new ArrayList<String>();
+        Connected = new ArrayList<ConnectedUser>();
     }
 
     @Override
@@ -61,6 +60,10 @@ public class ChatServer implements Runnable{
                 break;
             }
         }
+    }
+    
+     public static void Update(){
+        
     }
    
 }

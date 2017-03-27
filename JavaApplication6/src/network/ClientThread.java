@@ -7,23 +7,31 @@ package network;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
-
+import java.net.Socket;
 /**
  *
  * @author Lenovo
  */
 public class ClientThread implements Runnable{
-
+    
+    String input;
+    
     @Override
     public void run() {
-//        try{
-//            while(true){
-//                
-//                Thread.sleep(1000);
-//            }
-//        }catch(InterruptedException e){
-//            System.out.println(e.getMessage());
-//        }
+        try{
+            while(true){
+                input = ChatClient.in.readUTF();
+                
+                if(input.startsWith("RECEIVEMSG")){
+                    
+                }
+                Thread.sleep(1000);
+            }
+        }catch(InterruptedException e){
+            System.out.println(e.getMessage());
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
         
     }
     
