@@ -6,6 +6,7 @@
 package network;
 
 import Database.DatabaseFunction;
+import Database.FriendListHandler;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class ClientHandler implements Runnable{
 
     Socket s;
     String input;
+    String userName;
     DataInputStream in;
     DataOutputStream ou;
     
@@ -34,33 +36,70 @@ public class ClientHandler implements Runnable{
     
     @Override
     public void run() {
-        
-        while(s.isConnected()){
-            try{
-            while(s.isConnected()){
-
-                input = in.readUTF();
+        try{
                 
-                if(input.startsWith("SIGNIN")){
+                while(true){
+
+                    input = in.readUTF();
+                
+                    if(input.startsWith("SIGNIN")){
                         String[] array = input.split(" ");
-                        boolean check = new DatabaseFunction().SignInChecker(array[1], array[2]);
+                        boolean check = DatabaseFunction.SignInChecker(array[1], array[2]);
                         ou.writeBoolean(check);
                         ou.flush();
                         if(check){
-                            System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " has signed in.");
+                            System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " has signed in as: " + array[1]);
+                            userName = array[1];
+                            ChatServer.Connected.add(s);
+                            ChatServer.Users.add(array[1]);
                             break;
                         }else{
                             System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " failed  to sign in.");
                         }
-                }else if(input.startsWith("SIGNUP")){
-                    
+                    }else if(input.startsWith("SIGNUP")){
+                        String[] array = input.split(" ");
+                        boolean check = DatabaseFunction.SignUpChecker(array[1], array[3]);
+                        if(check){
+                            DatabaseFunction.Insert(array[1], array[2], array[3]);
+                        }
+                        ou.writeBoolean(check);
+                        ou.flush();
+                        System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " signed up.");
                     }
+                    
+                    Thread.sleep(1000);
                 }
-            }catch(IOException e){
-                System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " " + e.getMessage());
-                break;
+                
+                ou.writeUTF(FriendListHandler.getFriendList(userName));
+                ou.flush();
+            
+            while(true){
+                input = in.readUTF();
+                String array[] = input.split(" ");
+                if(input.startsWith("SEND")){
+                    
+                }else if(input.startsWith("ADD")){
+                    boolean check = FriendListHandler.checkDataExist(userName, array[1]);
+                    check = !check;
+                    if(check)
+                        FriendListHandler.addFriend(userName, array[1]);
+                    ou.writeBoolean(check);
+                    ou.flush();
+                }else if(input.startsWith("SEARCH")){
+                    boolean check = DatabaseFunction.userCheck(array[1]);
+                    ou.writeBoolean(check);
+                    ou.flush();
+                }
+                Thread.sleep(1000);
             }
-        }
+        }catch(IOException e){
+            System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " " + e.getMessage());
+        }catch(Exception e) {
+            System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " " + e.getMessage());
+        }finally{
+            ChatServer.Connected.remove(s);
+            ChatServer.Users.remove(userName);
+        }    
         
     }
     

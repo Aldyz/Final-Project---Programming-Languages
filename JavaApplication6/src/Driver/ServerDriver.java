@@ -6,6 +6,8 @@
 package Driver;
 
 import Database.DatabaseFunction;
+import java.util.Timer;
+import java.util.TimerTask;
 import network.ChatServer;
 
 /**
@@ -15,10 +17,24 @@ import network.ChatServer;
 public class ServerDriver {
     
     public static void main(String[] args) {
-        DatabaseFunction dbf = new DatabaseFunction();
+        DatabaseFunction dbf = DatabaseFunction.getInstance();
         dbf.Connect();
         ChatServer s = new ChatServer();
         s.startServer();
+        s.check();
+//        Thread t = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("AYY");
+//                try{
+//                    Thread.sleep(2000);
+//                }catch(InterruptedException e){
+//                    System.out.println(e.getMessage());
+//                }
+//                System.out.println("LMAO");
+//            }
+//        });
+//        t.start();
     }
     
 }

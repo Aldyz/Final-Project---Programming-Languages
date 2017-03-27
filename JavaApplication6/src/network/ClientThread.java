@@ -5,6 +5,9 @@
  */
 package network;
 
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lenovo
@@ -13,6 +16,14 @@ public class ClientThread implements Runnable{
 
     @Override
     public void run() {
+//        try{
+//            while(true){
+//                
+//                Thread.sleep(1000);
+//            }
+//        }catch(InterruptedException e){
+//            System.out.println(e.getMessage());
+//        }
         
     }
     

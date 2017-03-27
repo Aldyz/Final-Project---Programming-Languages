@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Vincent
  */
-public class DatabaseFunction 
+public final class DatabaseFunction 
 {
     private static String sURL = "jdbc:mysql://localhost:3306/finalprojectoop?zeroDateTimeBehavior=convertToNull";
     private static String sUser = "root";
@@ -34,11 +34,15 @@ public class DatabaseFunction
     private static Connection connect;
     private static String query = "Select * from usersdata";
     
-    public DatabaseFunction(){
+    private DatabaseFunction(){
         
     }
     
-    public void Insert(String name, String password, String email)
+    public static DatabaseFunction getInstance(){
+        return new DatabaseFunction();
+    }
+    
+    public static void Insert(String name, String password, String email)
     {
         
         try
@@ -47,7 +51,10 @@ public class DatabaseFunction
             try
             {
                 String sAction;
-                sAction = "INSERT INTO USERSDATA (ID, Name, Password, Email) VALUES ( 2, '" + name + "', '" + password + "', '" + email + "')";
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date dt = new Date();
+                String currentDate = dateFormat.format(dt);
+                sAction = "INSERT INTO USERSDATA (NAME, PASSWORD, EMAIL, SIGNUP, LASTSIGNIN) VALUES ('" + name + "', '" + password + "', '" + email + "', '"+ currentDate + "', '" + currentDate +"')";
                 stmt.executeUpdate(sAction);
                 //JOptionPane.showMessageDialog(this, "New prisoner has been added!");
             }
@@ -63,7 +70,7 @@ public class DatabaseFunction
         }
     }
     
-    protected void Update()
+    protected static void Update()
     {
         String sUserName = "";//TxtUserName.getText();
         String sPassword = "";//TxtPassword.getText();
@@ -83,7 +90,7 @@ public class DatabaseFunction
         }
     }
     
-    protected void Delete()
+    protected static void Delete()
     {
         try 
         {
@@ -96,15 +103,23 @@ public class DatabaseFunction
         }
     }
     
-    public void Connect()
+    public void close(){
+        try{
+            rs.close();
+            stmt.close();
+            connect.close();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void Connect()
     {   
         try 
         {
             connect = DriverManager.getConnection(sURL, sUser, sPassword);
             stmt = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            query = "Select * from usersdata";
             rs = stmt.executeQuery(query);
-            rs.first();
         } 
         catch (SQLException e) 
         {
@@ -113,15 +128,36 @@ public class DatabaseFunction
         }
     }
     
-    public boolean SignInChecker(String name, String pass)
+    public static boolean SignUpChecker(String name, String email){
+        
+        try{
+            PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ? AND email = ?");
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ResultSet temp = ps.executeQuery();
+            while(temp.next()){
+                if(temp.getString("name").equals(name) || temp.getString("email").equals(email))
+                    return false;
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        return true;
+    }
+    
+    public static boolean SignInChecker(String name, String pass)
     {
         try 
         {
             PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ? AND password = ?");
             ps.setString(1, name);
             ps.setString(2, pass);
-            //String sql = ("SELECT * FROM USERDATA ORDER BY IDNUMBER DESC LIMIT 1;");
-            return ps.executeQuery().first();
+            ResultSet temp = ps.executeQuery();
+            while(temp.next()){
+                if(temp.getString("name").equals(name) && temp.getString("password").equals(pass))
+                    return true;
+            }
         } 
         catch (SQLException e) 
         {
@@ -131,13 +167,26 @@ public class DatabaseFunction
         return false;
     }
     
+    public static boolean userCheck(String name){
+        try{
+            PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ?");
+            ps.setString(1, name);
+            ResultSet temp = ps.executeQuery();
+            while(temp.next()){
+                if(temp.getString("name").equals(name)){
+                    return true;
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    
     public static void main(String[] args) {
         DatabaseFunction dbf = new DatabaseFunction();
         dbf.Connect();
-        //dbf.Insert("Tio", "Hello", "Hi");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dt = new Date();
-        System.out.println(dateFormat.format(dt));
-        //System.out.println(dbf.SignInChecker("Aldi", "123"));
+        //dbf.Insert("Rafi", "Hello", "Hi");
+        System.out.println(dbf.SignInChecker("tio", "Hello"));
     }
 }

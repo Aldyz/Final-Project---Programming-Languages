@@ -6,6 +6,8 @@
 package GUI;
 
 import javax.swing.JOptionPane;
+import network.ChatClient;
+import network.Validator;
 
 /**
  *
@@ -82,7 +84,7 @@ public class SignUpForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(lblWelcome)
-                        .addGap(0, 24, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -127,7 +129,7 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConfirmPassword)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirm)
                 .addGap(29, 29, 29))
         );
@@ -137,47 +139,83 @@ public class SignUpForm extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
+        int length1 = txtUsername.getText().trim().length();
+        int length2 = txtPassword.getText().trim().length();
+        int length3 = txtEmail.getText().trim().length();
+        int length4 = txtConfirmPassword.getText().trim().length();
+        if(length1 == 0 || length2 == 0 || length3 == 0 || length4 == 0 ){
+            JOptionPane.showMessageDialog(this, "Don't leave any boxes empty");
+            return;
+        }
+        
+        if(txtUsername.getText().trim().contains(" ")){
+            JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
+            return;
+        }else if(txtPassword.getText().trim().contains(" ")){
+            JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
+            return;
+        }else if(txtEmail.getText().trim().contains(" ")){
+            JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
+            return;
+        }
+        
         if(!txtPassword.getText().equals(txtConfirmPassword.getText())){
             JOptionPane.showMessageDialog(this, "Password Not The Same");
             return;
         }
         
+        if(!Validator.UserNameValidate(txtUsername.getText())){
+            JOptionPane.showMessageDialog(this, "Username can only contain Alphanumerals");
+            return;
+        }
         
+        boolean flag = ChatClient.getRegistration(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
+        if(flag){
+            new LoginForm();
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Username or Email is already in use");
+        }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SignUpForm().setVisible(true);
-            }
-        });
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new SignUpForm().setVisible(true);
+//            }
+//        });
+//    }
+    
+    public static void main(String[] args) {
+        String w = "Ha";
+        System.out.println(w.trim().contains(" "));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

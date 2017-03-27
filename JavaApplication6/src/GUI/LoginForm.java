@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.Utilities;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,23 +24,31 @@ public class LoginForm extends javax.swing.JFrame {
     
     //to create IP Address window
     private JFrame jAddress = new JFrame();
-    private ChatClient c;
     //to hold the IP Address
     private static String ipAddress;
     //to hold the Logo Path
     
      //Creates new LoginForm
-    public LoginForm(ChatClient c) {
+    public LoginForm() {
         
         initComponents();
         setImage();
-        this.c = c;
+        setRememberMe();
         //sets the program on the centre
         this.setLocationRelativeTo(null);
         
         //set the default close operation
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+    
+    
+    public void setRememberMe(){
+        String array[] = Utilities.getRememberMe();
+        txtName.setText(array[0]);
+        fldPassword.setText(array[1]);
+        if(!array[0].equals("") && !array[1].equals(""))
+            chBoxRemember.setSelected(true);
     }
     
     public void setImage(){
@@ -175,9 +184,16 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // if the login failed
-        System.out.println(fldPassword.getText());
-        boolean check = c.getAuthentication(txtName.getText(), fldPassword.getText());
+        
+        boolean check = ChatClient.getAuthentication(txtName.getText(), fldPassword.getText());
+        
         if(check){
+            if(chBoxRemember.isSelected() && check){
+                Utilities.RememberLogin(txtName.getText(), fldPassword.getText());
+            }else{
+                Utilities.RememberLogin("", "");
+            }
+            ChatClient.startThread();
             new FriendsForm();
             this.dispose();
         }else{
@@ -187,7 +203,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         //exit from the program
-        SignUpForm signUp = new SignUpForm();
+        new SignUpForm();
         this.dispose();
     }//GEN-LAST:event_btnSignUpActionPerformed
 
@@ -198,7 +214,8 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIpActionPerformed
         //Show new window to input the IP and get the IP Addess
         
-        ipAddress = JOptionPane.showInputDialog(this, "Please input the IP Address");
+        ChatClient.setIP();
+        ChatClient.Connect();
     }//GEN-LAST:event_btnIpActionPerformed
 
 

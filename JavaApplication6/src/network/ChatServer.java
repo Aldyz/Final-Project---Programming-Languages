@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public class ChatServer {
+public class ChatServer implements Runnable{
     
     private static final int port = 8000;
     public static ArrayList<Socket> Connected;
@@ -28,6 +28,12 @@ public class ChatServer {
         Connected = new ArrayList<Socket>();
         Users = new ArrayList<String>();
     }
+
+    @Override
+    public void run() {
+        
+    }
+    
     
     public void startServer(){
         System.out.println("Starting Server...");
@@ -35,7 +41,6 @@ public class ChatServer {
         {
             ss = new ServerSocket(port);
             System.out.println("Server Started Successfully");
-            check();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }

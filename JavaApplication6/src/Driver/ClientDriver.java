@@ -33,8 +33,9 @@ public class ClientDriver {
     public static void main(String[] args) {
         
         setLooksandFeel();
-        ChatClient c = new ChatClient();
+        ChatClient c = ChatClient.getInstance();
+        ChatClient.setIP();
         c.Connect();
-        new LoginForm(c);
+        new LoginForm();
     }
 }
