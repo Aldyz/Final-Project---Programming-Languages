@@ -18,7 +18,6 @@ public class ConnectedUser {
     
     private String Name;
     private Socket s;
-    private DataInputStream in;
     private DataOutputStream ou;
     private ArrayList<String> Friends;
     private ArrayList<String> Groups;
@@ -31,19 +30,49 @@ public class ConnectedUser {
         Groups = new ArrayList<String>();
         Blocked = new ArrayList<String>();
         try{
-            in = new DataInputStream(s.getInputStream());
             ou = new DataOutputStream(s.getOutputStream());
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
     }
     
-    public void setFriends(){
-        
+    public ArrayList<String> getBlocked(){
+        return Blocked;
     }
     
-    public void addFriend(){
-        
+    public void setBlocked(String Blocked){
+        String array[] = Blocked.split(" ");
+        for(int i = 0; i < array.length; i++){
+            this.Blocked.add(array[i]);
+        }
+    }
+    
+    public void addBlocked(String user){
+        Blocked.add(user);
+    }
+    
+    public void removeBlocked(String user){
+        Blocked.remove(user);
+    }
+    
+    public void sendMsg(String friend, String msg){
+        try{
+            ou.writeUTF("RECEIVEMSG " + friend + " " + msg);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void setFriends(String friends){
+        String array[] = friends.split(" ");
+        for(int i = 0; i < array.length; i++){
+            Friends.add(array[i]);
+        }
+    }
+    
+    public void addFriend(String friend){
+        Friends.add(friend);
     }
 
     public String getName() {
@@ -62,14 +91,6 @@ public class ConnectedUser {
         this.s = s;
     }
 
-    public DataInputStream getIn() {
-        return in;
-    }
-
-    public void setIn(DataInputStream in) {
-        this.in = in;
-    }
-
     public DataOutputStream getOu() {
         return ou;
     }
@@ -78,5 +99,14 @@ public class ConnectedUser {
         this.ou = ou;
     }
     
-    
+    public static void main(String[] args) {
+        ArrayList<String> list= new ArrayList<String>();
+        String a = "a";
+        String b = "b";
+        list.add(a);
+        list.add(b);
+        list.remove("a");
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+    }
 }

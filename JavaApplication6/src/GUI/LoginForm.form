@@ -152,6 +152,9 @@
     <Component class="javax.swing.JLabel" name="lblPic">
     </Component>
     <Component class="javax.swing.JPasswordField" name="fldPassword">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fldPasswordActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>

@@ -5,14 +5,23 @@
         <group>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/GUI/FriendsForm.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/network/ClientThread.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Driver/ClientDriver.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/GUI/SignUpForm.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/network/ChatServer.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Database/FriendListHandler.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Driver/ServerDriver.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Database/GroupListHandler.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/GUI/ProfileOpt.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/GUI/LoginForm.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/network/Validator.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/GUI/UpdateGroup.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Database/FriendListHandler.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Database/DatabaseFunction.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/network/ClientHandler.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/network/ChatClient.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/com/ConnectedUser.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/GUI/BlockList.java</file>
             <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Database/ChatHistoryHandler.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/com/ConnectedUser.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/Programming%20Languages/Final%20Project/Final-Project---Programming-Languages/JavaApplication6/src/Database/BlockListHandler.java</file>
         </group>
     </open-files>
 </project-private>

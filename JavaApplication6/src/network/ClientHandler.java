@@ -5,6 +5,7 @@
  */
 package network;
 
+import Database.BlockListHandler;
 import Database.DatabaseFunction;
 import Database.FriendListHandler;
 import com.ConnectedUser;
@@ -12,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import jdk.nashorn.internal.ir.Block;
 /**
  *
  * @author Lenovo
@@ -41,7 +43,6 @@ public class ClientHandler implements Runnable{
         try{
                 
                 while(true){
-
                     input = in.readUTF();
                 
                     if(input.startsWith("SIGNIN")){
@@ -70,35 +71,49 @@ public class ClientHandler implements Runnable{
                         System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " signed up.");
                     }
                     
+                    
                     Thread.sleep(1000);
                 }
                 
                 
                 ou.writeUTF(FriendListHandler.getFriendList(userName));
                 ou.flush();
+                ou.writeUTF(BlockListHandler.getBlockList(userName));
+                ou.flush();
+                
+                user.setBlocked(BlockListHandler.getBlockList(userName));
             
             while(true){
                 input = in.readUTF();
                 String array[] = input.split(" ");
                 if(input.startsWith("SEND")){
-                    
+                    if(BlockListHandler.checkDataExist(array[1], userName))
+                        continue;
+                    int index = ChatServer.userExist(array[1]);
+                    if(index != -1){
+                        ChatServer.Connected.get(index).sendMsg(userName, input.substring(array[0].length() + array[1].length() + 2));
+                    }
+                        
                 }else if(input.startsWith("ADD")){
                     boolean check = FriendListHandler.checkDataExist(userName, array[1]);
                     check = !check;
-                    if(check)
+                    if(check){
                         FriendListHandler.addFriend(userName, array[1]);
-                    ou.writeBoolean(check);
+                        FriendListHandler.addFriend(array[1], userName);
+                    }
+                    ChatServer.UpdateFL(array[1], userName);
+                    ou.writeUTF("SADDED " + check);
                     ou.flush();
                 }else if(input.startsWith("SEARCH")){
                     boolean check = DatabaseFunction.userCheck(array[1]);
-                    ou.writeBoolean(check);
+                    ou.writeUTF("SRESULT " + check);
                     ou.flush();
-                }else if(input.startsWith("PROFILE")){
-                    
                 }else if(input.startsWith("BLOCK")){
-                    
+                    user.addBlocked(array[1]);
+                    BlockListHandler.insertList(user.getBlocked(), userName);
                 }else if(input.startsWith("UNBLOCK")){
-                    
+                    user.removeBlocked(array[1]);
+                    BlockListHandler.insertList(user.getBlocked(), userName);
                 }else if(input.startsWith("CREATEGROUP")){
                     
                 }

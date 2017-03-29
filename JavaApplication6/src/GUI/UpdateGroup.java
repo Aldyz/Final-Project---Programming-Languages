@@ -17,6 +17,9 @@ public class UpdateGroup extends javax.swing.JDialog {
     public UpdateGroup(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        bttnInvite.setEnabled(false);
+        bttnRemove.setEnabled(false);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
@@ -30,20 +33,26 @@ public class UpdateGroup extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        UGFriendsList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        UGMemberList = new javax.swing.JList<>();
+        bttnInvite = new javax.swing.JButton();
+        bttnRemove = new javax.swing.JButton();
+        bttnConfirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
+        UGFriendsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        UGFriendsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UGFriendsListMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(UGFriendsList);
 
         jLabel1.setText("Friends List");
 
@@ -51,11 +60,18 @@ public class UpdateGroup extends javax.swing.JDialog {
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jScrollPane2.setViewportView(jList2);
+        UGMemberList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UGMemberListMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(UGMemberList);
 
-        jButton1.setText("Add");
+        bttnInvite.setText("Invite");
 
-        jButton2.setText("Remove");
+        bttnRemove.setText("Remove");
+
+        bttnConfirm.setText("Confirm");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,7 +80,7 @@ public class UpdateGroup extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttnInvite, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -72,8 +88,12 @@ public class UpdateGroup extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(bttnRemove))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(222, 222, 222)
+                .addComponent(bttnConfirm)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,15 +106,29 @@ public class UpdateGroup extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(bttnInvite)
+                    .addComponent(bttnRemove))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bttnConfirm)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UGFriendsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UGFriendsListMouseClicked
+        // TODO add your handling code here:
+        bttnRemove.setEnabled(false);
+        bttnInvite.setEnabled(true);
+    }//GEN-LAST:event_UGFriendsListMouseClicked
+
+    private void UGMemberListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UGMemberListMouseClicked
+        // TODO add your handling code here:
+        bttnInvite.setEnabled(false);
+        bttnRemove.setEnabled(true);
+    }//GEN-LAST:event_UGMemberListMouseClicked
 
     /**
      * @param args the command line arguments
@@ -139,12 +173,13 @@ public class UpdateGroup extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JList<String> UGFriendsList;
+    private javax.swing.JList<String> UGMemberList;
+    private javax.swing.JButton bttnConfirm;
+    private javax.swing.JButton bttnInvite;
+    private javax.swing.JButton bttnRemove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

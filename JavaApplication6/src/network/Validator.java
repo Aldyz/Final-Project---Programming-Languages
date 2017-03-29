@@ -25,6 +25,13 @@ public class Validator {
         return true;
     }
     
+    public static boolean isEmpty(String word){
+        if(word.trim().length() == 0)
+            return true;
+        else
+            return false;
+    }
+    
     public static void main(String[] args) {
         String let = "Aldo#";
         System.out.println(UserNameValidate(let));

@@ -23,6 +23,15 @@ public class ChatClient {
     public static DataOutputStream ou;
     private static boolean Authentication;
     private static String IP;
+    private static String name;
+
+    public static String getName() {
+        return name;
+    }
+
+    public static void setName(String name) {
+        ChatClient.name = name;
+    }
     
     private ChatClient(){
         
@@ -30,6 +39,15 @@ public class ChatClient {
     
     public static ChatClient getInstance(){
         return new ChatClient();
+    }
+    
+    public static String getBlockList(){
+        try{
+            return in.readUTF();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
     
     public static String getFriendList(){
@@ -79,31 +97,58 @@ public class ChatClient {
     }
     
     public static void startThread(){
-        Thread t = new Thread(new ClientThread());
-        t.start();
+        try{
+            ClientThread ct = new ClientThread(s);
+            Thread ts = new Thread(ct);
+            ts.start();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
     
-    public static boolean addFriend(String name){
+    public static void addFriend(String name){
         try{
             ou.writeUTF("ADD " + name);
             ou.flush();
-            return in.readBoolean();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-        return false;
     }
     
-    public static boolean userSearch(String name){
+    public static void createGroup(String name){
+        try{
+            ou.writeUTF("CREATEGROUP " + name);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void blockUser(String name){
+        try{
+            ou.writeUTF("BLOCK " + name);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void unblockUser(String name){
+        try{
+            ou.writeUTF("UNBLOCK " + name);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void userSearch(String name){
         try{
             ou.writeUTF("SEARCH " + name);
             ou.flush();
-            return in.readBoolean();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-        
-        return false;
     }
     
     public static boolean getAuthentication(String name, String pass){

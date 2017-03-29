@@ -16,17 +16,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import network.ChatClient;
+import network.Validator;
 
 /*
    @author Aldi, Vero, Vincent
 */
 public class LoginForm extends javax.swing.JFrame {
     
-    //to create IP Address window
-    private JFrame jAddress = new JFrame();
-    //to hold the IP Address
-    private static String ipAddress;
-    //to hold the Logo Path
+    //to hold the the flag to succesfully signed in or not
+    private boolean check;
     
      //Creates new LoginForm
     public LoginForm() {
@@ -63,6 +61,54 @@ public class LoginForm extends javax.swing.JFrame {
             lblPic.repaint();
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    public void disableAll(){
+        txtName.setEnabled(false);
+        fldPassword.setEnabled(false);
+        btnLogin.setEnabled(false);
+        btnIp.setEnabled(false);
+        btnSignUp.setEnabled(false);
+        chBoxRemember.setEnabled(false);
+    }
+    
+    public void enableAll(){
+        txtName.setEnabled(true);
+        fldPassword.setEnabled(true);
+        btnLogin.setEnabled(true);
+        btnIp.setEnabled(true);
+        btnSignUp.setEnabled(true);
+        chBoxRemember.setEnabled(true);
+    }
+    
+    public void rememberMe(){
+            if(chBoxRemember.isSelected() && check){
+                Utilities.RememberLogin(txtName.getText(), fldPassword.getText());
+            }else{
+                Utilities.RememberLogin("", "");
+            }
+        
+    }
+    
+    public void signIn(){
+      
+        disableAll();
+        
+        if(Validator.isEmpty(txtName.getText()) || Validator.isEmpty(fldPassword.getText())){
+            JOptionPane.showMessageDialog(this, "Don't leave these empty");
+            return;
+        }
+        
+        check = ChatClient.getAuthentication(txtName.getText(), fldPassword.getText());
+        if(check){
+            rememberMe();
+            ChatClient.setName(txtName.getText());
+            new FriendsForm();
+            this.dispose();
+        }else{
+            enableAll();
+            JOptionPane.showMessageDialog(this, "Login Failed");
         }
     }
 
@@ -121,6 +167,12 @@ public class LoginForm extends javax.swing.JFrame {
         btnIp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIpActionPerformed(evt);
+            }
+        });
+
+        fldPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fldPasswordActionPerformed(evt);
             }
         });
 
@@ -184,21 +236,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // if the login failed
-        
-        boolean check = ChatClient.getAuthentication(txtName.getText(), fldPassword.getText());
-        
-        if(check){
-            if(chBoxRemember.isSelected() && check){
-                Utilities.RememberLogin(txtName.getText(), fldPassword.getText());
-            }else{
-                Utilities.RememberLogin("", "");
-            }
-            ChatClient.startThread();
-            new FriendsForm();
-            this.dispose();
-        }else{
-        JOptionPane.showMessageDialog(this, "Login Failed");
-        }
+        signIn();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
@@ -209,14 +247,22 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
+        signIn();
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIpActionPerformed
         //Show new window to input the IP and get the IP Addess
         
         ChatClient.setIP();
+        disableAll();
         ChatClient.Connect();
+        enableAll();
     }//GEN-LAST:event_btnIpActionPerformed
+
+    private void fldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldPasswordActionPerformed
+        // TODO add your handling code here:
+        signIn();
+    }//GEN-LAST:event_fldPasswordActionPerformed
 
 
     /**

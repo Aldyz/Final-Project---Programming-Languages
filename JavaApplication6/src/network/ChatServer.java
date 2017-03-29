@@ -13,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 /**
  *
  * @author Lenovo
@@ -62,8 +63,24 @@ public class ChatServer implements Runnable{
         }
     }
     
-     public static void Update(){
+    public static void UpdateFL(String user, String added)throws IOException{
+        int index = userExist(user);
+        if(index!=-1){
+            Connected.get(index).getOu().writeUTF("UPDATEFL " + added);
+        }
+    }
+    
+     public static void Update(String user, String added){
         
     }
+     
+     public static int userExist(String name){
+         for(int i = 0; i < Connected.size(); i++){
+             if(Connected.get(i).getName().equals(name))
+                 return i;
+         }
+         
+         return -1;
+     }
    
 }
