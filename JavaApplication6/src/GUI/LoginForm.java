@@ -5,8 +5,9 @@
  */
 package GUI;
 
-import com.Utilities;
+import com.RememberMe;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
@@ -16,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import network.ChatClient;
-import network.Validator;
+import com.Validator;
 
 /*
    @author Aldi, Vero, Vincent
@@ -32,6 +33,7 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         setImage();
         setRememberMe();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("af03fc6642fcd5210a3af609bcaeca2e.png")));
         //sets the program on the centre
         this.setLocationRelativeTo(null);
         
@@ -42,7 +44,7 @@ public class LoginForm extends javax.swing.JFrame {
     
     
     public void setRememberMe(){
-        String array[] = Utilities.getRememberMe();
+        String array[] = RememberMe.getRememberMe();
         txtName.setText(array[0]);
         fldPassword.setText(array[1]);
         if(!array[0].equals("") && !array[1].equals(""))
@@ -84,9 +86,9 @@ public class LoginForm extends javax.swing.JFrame {
     
     public void rememberMe(){
             if(chBoxRemember.isSelected() && check){
-                Utilities.RememberLogin(txtName.getText(), fldPassword.getText());
+                RememberMe.RememberLogin(txtName.getText(), fldPassword.getText());
             }else{
-                Utilities.RememberLogin("", "");
+                RememberMe.RememberLogin("", "");
             }
         
     }

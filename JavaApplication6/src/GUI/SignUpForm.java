@@ -7,7 +7,7 @@ package GUI;
 
 import javax.swing.JOptionPane;
 import network.ChatClient;
-import network.Validator;
+import com.Validator;
 
 /**
  *
@@ -139,11 +139,11 @@ public class SignUpForm extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        int length1 = txtUsername.getText().trim().length();
-        int length2 = txtPassword.getText().trim().length();
-        int length3 = txtEmail.getText().trim().length();
-        int length4 = txtConfirmPassword.getText().trim().length();
-        if(length1 == 0 || length2 == 0 || length3 == 0 || length4 == 0 ){
+        boolean length1 = Validator.isEmpty(txtUsername.getText());
+        boolean length2 = Validator.isEmpty(txtPassword.getText());
+        boolean length3 = Validator.isEmpty(txtEmail.getText());
+        boolean length4 = Validator.isEmpty(txtConfirmPassword.getText());
+        if(length1 || length2 || length3 || length4 ){
             JOptionPane.showMessageDialog(this, "Don't leave any boxes empty");
             return;
         }

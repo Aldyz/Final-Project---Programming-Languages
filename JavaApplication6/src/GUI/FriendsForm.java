@@ -6,9 +6,15 @@
 package GUI;
 
 import Database.ChatHistoryHandler;
+import Database.GroupHistoryHandler;
+import com.AudioFile;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -19,6 +25,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import network.ChatClient;
+import com.Validator;
+import java.io.InputStream;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import sun.audio.*;
 
 /**
  *
@@ -28,15 +39,25 @@ public class FriendsForm extends javax.swing.JFrame {
 
     static String friendAdd;
     static DefaultListModel<String> friendsList;
+    static String groupName;
+    static DefaultListModel<String> groupList;
+    static boolean Groupflag;
+    static boolean Friendflag;
+    static DefaultListModel<String> notificationList;
+    public static String fileName;
+    
     /**
      * Creates new form FriendsForm
      */
     public FriendsForm() {
         initComponents();
-        friendsList = new DefaultListModel<String>();
         reset();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("af03fc6642fcd5210a3af609bcaeca2e.png")));
+        new BlockList();
         setImage();
         setList();
+        Groupflag = false;
+        Friendflag = false;
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -52,16 +73,27 @@ public class FriendsForm extends javax.swing.JFrame {
     public void setList(){
         String array[];
         String array2[];
+        String array3[];
+        friendsList = new DefaultListModel<String>();
+        groupList = new DefaultListModel<String>();
+        notificationList = new DefaultListModel<String>();
+        JFriendList.setModel(friendsList);
+        jGroup.setModel(groupList);
+        jNotifList.setModel(notificationList);
         array = ChatClient.getFriendList().split(" ");
         for(int i = 0; i < array.length; i++){
             friendsList.addElement(array[i]);
         }
         
-        JFriendList.setModel(friendsList);
-        new BlockList();
         array2 = ChatClient.getBlockList().split(" ");
         for(int i = 0; i < array2.length; i++){
             BlockList.blocked.addElement(array2[i]);
+        }
+        
+        array3 = ChatClient.getGroupList().split(" ");
+        
+        for(int i = 0; i < array3.length; i++){
+            groupList.addElement(array3[i]);
         }
         
     }
@@ -87,8 +119,36 @@ public class FriendsForm extends javax.swing.JFrame {
         lblName.setText("");
     }
     
-    public static void getMsg(String msg){
-        ChatText.append(msg);
+    public static void getMsg(String name,String msg){
+        if(!JFriendList.getSelectedValue().startsWith(name)){
+            for(int i = 0; i < friendsList.size(); i++){
+                if(friendsList.get(i).startsWith(name)){
+                    friendsList.remove(i);
+                    friendsList.add(0, name + " *");
+                }
+            }
+        }else{
+            ChatText.append(msg);
+        }
+    }
+    
+    public static void getGrpMsg(String name, String gName, String msg){
+        if(jGroup.getSelectedValue().startsWith(gName)){
+            ChatText.append(msg);
+        }
+//            for(int i = 0; i < friendsList.size(); i++){
+//                if(friendsList.get(i).startsWith(name)){
+//                    friendsList.remove(i);
+//                    friendsList.add(0, name + " *");
+//                }
+//            }
+//        }else{
+//            
+//        //}
+    }
+    
+    public static void getFTNotification(String name, String sender){
+        notificationList.addElement("File Transfer Request: " + name + ", From: " + sender);
     }
     
     public void sendMsg(){
@@ -97,8 +157,21 @@ public class FriendsForm extends javax.swing.JFrame {
             return;
         ChatText.append(ChatClient.getName() + ": " +msg);
         txtChatField.setText("");
-        ChatHistoryHandler.addHistory(JFriendList.getSelectedValue(), ChatClient.getName() + ": " +msg);
+        if(!JFriendList.getSelectedValue().contains("*"))
+            ChatHistoryHandler.addHistory(JFriendList.getSelectedValue(), ChatClient.getName() + ": " +msg);
+        else
+            ChatHistoryHandler.addHistory(JFriendList.getSelectedValue().split(" ")[0], ChatClient.getName() + ": " +msg);
         ChatClient.sendMsg(JFriendList.getSelectedValue(), msg);
+    }
+    
+    public void sendGrpMsg(){
+        String msg =  txtChatField.getText() + "\n";
+        if(msg.equals(""))
+            return;
+        ChatText.append(ChatClient.getName() + ": " +msg);
+        txtChatField.setText("");
+        GroupHistoryHandler.addHistory(jGroup.getSelectedValue(), ChatClient.getName() + ": " +msg);
+        ChatClient.sendGroupMsg(jGroup.getSelectedValue(), msg);
     }
     
     public static String getSelectedFList(){
@@ -118,6 +191,12 @@ public class FriendsForm extends javax.swing.JFrame {
         friendsList.addElement(name);
         JFriendList.setModel(friendsList);
         ChatHistoryHandler.createHistory(name);
+    }
+    
+    public static void addGroup(){
+        groupList.addElement(groupName);
+        jGroup.setModel(groupList);
+        GroupHistoryHandler.createHistory(groupName);
     }
     
     public static void addFriend(){
@@ -160,7 +239,7 @@ public class FriendsForm extends javax.swing.JFrame {
         lblAddPhoto = new javax.swing.JLabel();
         paneNotif = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jNotifList = new javax.swing.JList<>();
         paneRight = new javax.swing.JPanel();
         txtChatField = new javax.swing.JTextField();
         btnAddFile = new javax.swing.JButton();
@@ -175,6 +254,7 @@ public class FriendsForm extends javax.swing.JFrame {
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        JFriendList.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         JFriendList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JFriendList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -234,6 +314,7 @@ public class FriendsForm extends javax.swing.JFrame {
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        jGroup.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jGroup.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jGroup.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -362,9 +443,14 @@ public class FriendsForm extends javax.swing.JFrame {
 
         tabGroup.addTab("Add Friend", paneAddFriend);
 
-        jList1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(jList1);
+        jNotifList.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jNotifList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jNotifList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jNotifListMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jNotifList);
 
         javax.swing.GroupLayout paneNotifLayout = new javax.swing.GroupLayout(paneNotif);
         paneNotif.setLayout(paneNotifLayout);
@@ -417,6 +503,7 @@ public class FriendsForm extends javax.swing.JFrame {
 
         ChatText.setEditable(false);
         ChatText.setColumns(20);
+        ChatText.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         ChatText.setRows(5);
         jScrollPane1.setViewportView(ChatText);
 
@@ -496,31 +583,56 @@ public class FriendsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtChatFieldActionPerformed
 
     private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
-        // TODO add your handling code here:
-        //when the photo label is clicked, new file menu is created
-        JFileChooser fc = new JFileChooser();
+        try{
+            // TODO add your handling code here:
+            //when the photo label is clicked, new file menu is created
+            JFileChooser fc = new JFileChooser();
 
-        //set all the file that can be accepted to true
-        fc.setAcceptAllFileFilterUsed(true);
+            //set all the file that can be accepted to true
+            fc.setAcceptAllFileFilterUsed(true);
 
-        //how the jfilechooser frame
-        //fc.showOpenDialog(this);
         
-        File selectedFile;
-        
-        //if the user click open
-        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-            selectedFile = fc.getSelectedFile();
+            FileInputStream selectedFile;
+            //if the user click open
+            if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+                selectedFile = new FileInputStream(fc.getSelectedFile());
+                fileName = fc.getSelectedFile().getName();
+                int l = selectedFile.available();
+                if(l>10000000){
+                    JOptionPane.showMessageDialog(this, "Maximum File Size 10 Mb");
+                    return;
+                }
+                ChatClient.arr = new byte[l];
+                selectedFile.read(ChatClient.arr);
+                ChatClient.fileSender(fileName, JFriendList.getSelectedValue(), l);
+                LoadingForm.loadingFlag = true;
+                new LoadingForm(this, true);
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "No file was chosen");
+            }   
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(IOException e){
+            System.out.println(e.getMessage());
         }
-        else{
-            JOptionPane.showMessageDialog(this, "No file was chosen");
-        }   
     }//GEN-LAST:event_btnAddFileActionPerformed
 
     private void JFriendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JFriendListMouseClicked
         // TODO add your handling code here:
+        Groupflag = true;
+        Friendflag = false;
         ChatText.setEnabled(true);
-        ChatText.setText(ChatHistoryHandler.getHistory(JFriendList.getSelectedValue()));
+        int i = JFriendList.getSelectedIndex();
+        String word = friendsList.get(i).substring(0,  friendsList.get(i).length()-2);
+        if(JFriendList.getSelectedValue().contains("*")){
+            ChatText.setText(ChatHistoryHandler.getHistory(word));
+            friendsList.remove(i);
+            friendsList.add(i, word);
+            JFriendList.setSelectedIndex(i);
+        }else{
+            ChatText.setText(ChatHistoryHandler.getHistory(JFriendList.getSelectedValue()));
+        }
         ChatText.setEnabled(true);
         txtChatField.setEnabled(true);
         btnBlock.setEnabled(true);
@@ -534,6 +646,8 @@ public class FriendsForm extends javax.swing.JFrame {
 
     private void jGroupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGroupMouseClicked
         // TODO add your handling code here:
+        Groupflag = true;
+        Friendflag = false;
         ChatText.setEnabled(true);
         txtChatField.setEnabled(true);
         btnBlock.setEnabled(true);
@@ -600,12 +714,29 @@ public class FriendsForm extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
-        sendMsg();
+        if(Friendflag)
+            sendMsg();
+        else if(Groupflag)
+            sendGrpMsg();
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void btnCreateGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateGroupActionPerformed
         // TODO add your handling code here:
-        String groupName = JOptionPane.showInputDialog("Input the group name");
+        groupName = JOptionPane.showInputDialog("Input the group name");
+        if(groupName == null)
+            return;
+        
+        if(Validator.containsSpace(groupName)){
+            JOptionPane.showMessageDialog(this, "Group Name Cannot Contain Spaces");
+            return;
+        }
+        
+        if(Validator.isEmpty(groupName)){
+            JOptionPane.showMessageDialog(this, "Don't leave this empty");
+            return;
+        }
+        
+        ChatClient.createGroup(groupName);
     }//GEN-LAST:event_btnCreateGroupActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -624,7 +755,20 @@ public class FriendsForm extends javax.swing.JFrame {
         new BlockList(this, true);
     }//GEN-LAST:event_btnUnblockActionPerformed
 
-   
+    private void jNotifListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNotifListMouseClicked
+        // TODO add your handling code here:
+        String array[] = jNotifList.getSelectedValue().split(" ");
+        if(jNotifList.getSelectedValue().startsWith("File Transfer")){
+           if(JOptionPane.showConfirmDialog(this, "Confirm Request", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+               ChatClient.fileSendConfirm(array[array.length-1], true);
+           }else{
+               ChatClient.fileSendConfirm(array[array.length-1], false);
+           }
+        }
+        
+        notificationList.remove(jNotifList.getSelectedIndex());
+    }//GEN-LAST:event_jNotifListMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JTextArea ChatText;
@@ -642,7 +786,7 @@ public class FriendsForm extends javax.swing.JFrame {
     private javax.swing.JButton btnUnblock;
     private javax.swing.JButton bttDltChat;
     private static javax.swing.JList<String> jGroup;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jNotifList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

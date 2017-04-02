@@ -36,6 +36,44 @@ public class ConnectedUser {
         }
     }
     
+    public void sendMsg(String friend, String msg){
+        try{
+            ou.writeUTF("RECEIVEMSG " + friend + " " + msg);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void sendFileNotification(String friend, String name, int size){
+        try{
+            ou.writeUTF("FILENOTIF " + friend + " " + size + " " + name);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void sendFile(byte[] arr, int size, String name){
+        try{
+            ou.writeUTF("SENDFILE " + size + " " + name);
+            ou.flush();
+            ou.write(arr);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void sendFileConfirmation(boolean flag){
+        try{
+            ou.writeUTF("FILECONFIRM " + flag);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public ArrayList<String> getBlocked(){
         return Blocked;
     }
@@ -47,21 +85,44 @@ public class ConnectedUser {
         }
     }
     
+    public void setGroup(String group){
+        String array[] = group.split(" ");
+        for(int i = 0; i < array.length; i++){
+            this.Groups.add(array[i]);
+        }
+    }
+    
+    public void addGroup(String name){
+        Groups.add(name);
+    }
+    
+    public void sendGrpMsg(String name, String GroupName, String msg){
+        try{
+            ou.writeUTF("GRUPMSG " + name + " " + GroupName + " " + msg);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public boolean groupExist(String name){
+        for(int i = 0; i < Groups.size(); i++){
+            if(Groups.get(i).equals(name))
+                return true;
+        }
+        return false;
+    }
+    
+    public void removeGroup(String name){
+        Groups.remove(name);
+    }
+    
     public void addBlocked(String user){
         Blocked.add(user);
     }
     
     public void removeBlocked(String user){
         Blocked.remove(user);
-    }
-    
-    public void sendMsg(String friend, String msg){
-        try{
-            ou.writeUTF("RECEIVEMSG " + friend + " " + msg);
-            ou.flush();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
     }
     
     public void setFriends(String friends){
@@ -99,14 +160,4 @@ public class ConnectedUser {
         this.ou = ou;
     }
     
-    public static void main(String[] args) {
-        ArrayList<String> list= new ArrayList<String>();
-        String a = "a";
-        String b = "b";
-        list.add(a);
-        list.add(b);
-        list.remove("a");
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-    }
 }

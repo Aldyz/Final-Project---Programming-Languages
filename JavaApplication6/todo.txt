@@ -1,0 +1,32 @@
+//pertama buka
+//chat box matiin semua, kecuali friendlist
+//klo klik send file buka j file chooser
+//saat ketik profile,buka jdialog change password retype your password view sign up kapan view user name user id 
+
+
+class friendsform
+profile option
+update group
+
+192.168.30.79
+
+//leave group are u sure
+//add group nama group
+//invite di edit
+
+friends form tambah fungsi set enable true
+sign up form ganti validasi user name dkk
+validator tambahin validator utk containSpace
+
+check kelas yg pake blocklist and friendlist, check method, cari kelas yg pake method mereka, ad yg bs d smain nggak
+
+clienthandler
+blocklisthandler
+line 8,81,84,90,113,116
+friendlisthandler
+line 10, 67, 79, 98,101,102
+
+SignUpForm
+line 146
+btnConfirmActionPerformed
+

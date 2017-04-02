@@ -73,7 +73,4 @@ public class ChatHistoryHandler {
         }
     }
     
-    public static void main(String[] args) {
-        
-    }
 }

@@ -8,3 +8,10 @@ dfg: eklfpw
 dfg: KIKIKIKI
 dfg: Hello
 dfg: Hi
+dfg: Hello
+Aldi: Hello
+dfg: Hello
+dfg: Hello
+Aldi: Hello
+Aldi: Hi
+Aldi: Hello

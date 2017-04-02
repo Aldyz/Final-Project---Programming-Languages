@@ -24,6 +24,7 @@ public class ChatClient {
     private static boolean Authentication;
     private static String IP;
     private static String name;
+    public static byte[] arr;;
 
     public static String getName() {
         return name;
@@ -59,6 +60,15 @@ public class ChatClient {
         return null;
     }
     
+    public static String getGroupList(){
+        try{
+            return in.readUTF();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
     public static void setIP(){
         IP = JOptionPane.showInputDialog("Input IP Address");
         if(IP == null)
@@ -68,6 +78,53 @@ public class ChatClient {
     public static void sendMsg(String friend, String msg){
         try{
             ou.writeUTF("SEND " + friend + " " + msg);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void fileSender(String name, String friend, int size){
+        try{
+            ou.writeUTF("FILESEND " + friend + " " + size + " " + name);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void sendData(String name, String fname){
+        try{
+            ou.writeUTF("SENDFILE " + name + " " + arr.length + " " + fname);
+            ou.flush();
+            ou.write(arr);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void fileSendConfirm(String name, boolean flag){
+        try{
+            ou.writeUTF("FILESENDCONFIRM " + name + " " + flag);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void sendGroupMsg(String name, String msg){
+        try{
+            ou.writeUTF("GSEND " + name + " " + msg);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void groupInvite(String name, String friend){
+        try{
+            ou.writeUTF("GROUPINVITE " + friend + " " + name);
             ou.flush();
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -84,6 +141,7 @@ public class ChatClient {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    
     
     public static void Connect(String IP){
         try{

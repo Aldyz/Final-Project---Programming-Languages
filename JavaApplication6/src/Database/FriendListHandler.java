@@ -73,10 +73,4 @@ public class FriendListHandler {
         }
         return list;
     }
-    
-    public static void main(String[] args) {
-        addFriend("Aldi", "Lawrence");
-        String word = getFriendList("Aldi");
-        System.out.println(word);
-    }
 }

@@ -82,11 +82,10 @@ public final class DatabaseFunction
                 rs.updateString("PASSWORD", sPassword);
                 rs.updateBoolean("LOGINSTATE", bLogin);
                 rs.updateRow();
-                //JOptionPane.showMessageDialog(this, "Prisoner's record updated!");
         }
-        catch(SQLException err)
+        catch(SQLException e)
         {
-           // JOptionPane.showMessageDialog(this, "Invalid input, please input an integer for ID!");
+            System.out.println(e.getMessage());
         }
     }
     
@@ -124,14 +123,13 @@ public final class DatabaseFunction
         catch (SQLException e) 
         {
             System.out.println(e.getMessage());
-            //Logger.getLogger(DatabaseFunction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public static boolean SignUpChecker(String name, String email){
         
         try{
-            PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ? AND email = ?");
+            PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ? OR email = ?");
             ps.setString(1, name);
             ps.setString(2, email);
             ResultSet temp = ps.executeQuery();
@@ -186,7 +184,6 @@ public final class DatabaseFunction
     public static void main(String[] args) {
         DatabaseFunction dbf = new DatabaseFunction();
         dbf.Connect();
-        //dbf.Insert("Rafi", "Hello", "Hi");
         System.out.println(dbf.SignInChecker("tio", "Hello"));
     }
 }
