@@ -83,10 +83,10 @@ public class ChatServer implements Runnable{
          return -1;
      }
      
-     public static ArrayList<Integer> getGroupExist(String name){
+     public static ArrayList<Integer> getGroupExist(String name, String userName){
          ArrayList<Integer> indexArray = new ArrayList<Integer>();
          for(int i = 0; i < Connected.size(); i++){
-             if(Connected.get(i).getName().equals(name))
+             if(Connected.get(i).groupExist(name) && !Connected.get(i).getName().equals(userName))
                  indexArray.add(i);
          }
          return indexArray;

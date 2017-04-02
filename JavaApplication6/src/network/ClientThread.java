@@ -6,10 +6,12 @@
 package network;
 
 import Database.ChatHistoryHandler;
+import Database.GroupHistoryHandler;
 import GUI.FriendsForm;
 import GUI.LoadingForm;
 import com.AudioFile;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -37,6 +39,7 @@ public class ClientThread implements Runnable{
             while(true){
                 input = ChatClient.in.readUTF();
                 array = input.split(" ");
+                System.out.println(input);
                 if(input.startsWith("RECEIVEMSG")){
                     String msg = array[1] + ": "+input.substring(array[0].length() + array[1].length() + 2);
                     new Thread(new AudioFile()).start();
@@ -75,8 +78,15 @@ public class ClientThread implements Runnable{
                 }else if(input.startsWith("GROUPINVITE")){
                     
                 }else if(input.startsWith("GRUPMSG")){
-                    String msg = input.substring(array[0].length() + array[1].length() + 2);
+                    String msg = array[1] + ": " + input.substring(array[0].length() + array[1].length() + 3 + array[2].length());
+                    new Thread(new AudioFile()).start();
+                    if(FriendsForm.getSelectedGList() == null){
+                        GroupHistoryHandler.addHistory(array[2],  msg);
+                        continue;
+                    }
                     
+                    FriendsForm.getGrpMsg(array[2], msg);
+                    GroupHistoryHandler.addHistory(array[2], msg);
                 }else if(input.startsWith("FILENOTIF")){
                     FriendsForm.getFTNotification(input.substring(array[0].length() + 3 + array[1].length() + array[2].length()), array[1]);
                     friendTemp = array[1];
@@ -89,7 +99,7 @@ public class ClientThread implements Runnable{
                         LoadingForm.fileSentDecline();
                     }
                 }else if(input.startsWith("SENDFILE")){
-                    FileOutputStream fou = new FileOutputStream(input.substring(array[0].length() + 2 + array[1].length()));
+                    FileOutputStream fou = new FileOutputStream(new File("SentFiles\\" + input.substring(array[0].length() + 2 + array[1].length())));
                     byte arr[] = new byte[Integer.parseInt(array[1])];
                     in.readFully(arr);
                     fou.write(arr);

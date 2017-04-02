@@ -20,7 +20,7 @@ public class GroupHistoryHandler {
     
     public static void createHistory(String name){
         try{
-            FileWriter fw = new FileWriter("GroupHistory\\" + name + "GroupHistory.txt", true);
+            FileWriter fw = new FileWriter("GroupHistory\\" + ChatClient.getName()+  "-" + name + "GroupHistory.txt", true);
             PrintWriter pw = new PrintWriter(fw);
             pw.close();
             fw.close();
@@ -31,7 +31,7 @@ public class GroupHistoryHandler {
     
     public static void addHistory(String name, String msg){
         try{
-            FileWriter fw = new FileWriter("GroupHistory\\" + name + "GroupHistory.txt", true);
+            FileWriter fw = new FileWriter("GroupHistory\\" + ChatClient.getName()+  "-" + name + "GroupHistory.txt", true);
             PrintWriter pw = new PrintWriter(fw);
             pw.print(msg);
             pw.close();
@@ -45,7 +45,7 @@ public class GroupHistoryHandler {
         String chat = "";
         String check;
         try{
-            FileReader fr = new FileReader("GroupHistory\\" + name + "GroupHistory.txt");
+            FileReader fr = new FileReader("GroupHistory\\"+ ChatClient.getName()+  "-"  + name + "GroupHistory.txt");
             BufferedReader br = new BufferedReader(fr);
             while((check = br.readLine()) != null){
                 chat += check + "\n";
@@ -64,7 +64,7 @@ public class GroupHistoryHandler {
     
     public static void clearHistory(String name){
         try{
-            FileWriter fw = new FileWriter("GroupHistory\\" + name + "GroupHistory.txt", false);
+            FileWriter fw = new FileWriter("GroupHistory\\"+ ChatClient.getName()+  "-"  + name + "GroupHistory.txt", false);
             PrintWriter pw = new PrintWriter(fw);
             pw.print("");
             pw.close();

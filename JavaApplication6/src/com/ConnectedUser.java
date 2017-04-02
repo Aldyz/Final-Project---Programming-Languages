@@ -98,6 +98,7 @@ public class ConnectedUser {
     
     public void sendGrpMsg(String name, String GroupName, String msg){
         try{
+            System.out.println("Yo");
             ou.writeUTF("GRUPMSG " + name + " " + GroupName + " " + msg);
             ou.flush();
         }catch(IOException e){

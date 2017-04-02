@@ -42,12 +42,16 @@ public final class DatabaseFunction
         return new DatabaseFunction();
     }
     
+    public static void refresh(){
+        try{
+            rs = stmt.executeQuery(query);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void Insert(String name, String password, String email)
     {
-        
-        try
-        {
-            
             try
             {
                 String sAction;
@@ -56,49 +60,25 @@ public final class DatabaseFunction
                 String currentDate = dateFormat.format(dt);
                 sAction = "INSERT INTO USERSDATA (NAME, PASSWORD, EMAIL, SIGNUP, LASTSIGNIN) VALUES ('" + name + "', '" + password + "', '" + email + "', '"+ currentDate + "', '" + currentDate +"')";
                 stmt.executeUpdate(sAction);
-                //JOptionPane.showMessageDialog(this, "New prisoner has been added!");
+                refresh();
             }
             catch(SQLException e)
             {
                 System.out.println(e.getMessage());
-                //JOptionPane.showMessageDialog(this, err.getMessage());
             }
-        }
-        catch(NumberFormatException err)
-        {
-            //JOptionPane.showMessageDialog(this, "Invalid input, please input an integer for ID!");
-        }
+        
     }
     
-    protected static void Update()
-    {
-        String sUserName = "";//TxtUserName.getText();
-        String sPassword = "";//TxtPassword.getText();
-        boolean bLogin = false;
-        
+    public static void Update(String password, String name)
+    {   
         try
         {
-                rs.updateString("USERNAME", sUserName);
-                rs.updateString("PASSWORD", sPassword);
-                rs.updateBoolean("LOGINSTATE", bLogin);
-                rs.updateRow();
+                stmt.executeUpdate("UPDATE usersdata SET PASSWORD = '" + password + "' WHERE NAME = '" + name + "'");
+                refresh();
         }
         catch(SQLException e)
         {
             System.out.println(e.getMessage());
-        }
-    }
-    
-    protected static void Delete()
-    {
-        try 
-        {
-            rs.deleteRow();
-            nCurrentRow = rs.getRow() - 1;
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(DatabaseFunction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -137,6 +117,8 @@ public final class DatabaseFunction
                 if(temp.getString("name").equals(name) || temp.getString("email").equals(email))
                     return false;
             }
+            temp.close();
+            ps.close();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -156,6 +138,8 @@ public final class DatabaseFunction
                 if(temp.getString("name").equals(name) && temp.getString("password").equals(pass))
                     return true;
             }
+            temp.close();
+            ps.close();
         } 
         catch (SQLException e) 
         {
@@ -175,15 +159,12 @@ public final class DatabaseFunction
                     return true;
                 }
             }
+            temp.close();
+            ps.close();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
         return false;
     }
-    
-    public static void main(String[] args) {
-        DatabaseFunction dbf = new DatabaseFunction();
-        dbf.Connect();
-        System.out.println(dbf.SignInChecker("tio", "Hello"));
-    }
+
 }

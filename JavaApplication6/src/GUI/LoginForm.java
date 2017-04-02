@@ -43,6 +43,8 @@ public class LoginForm extends javax.swing.JFrame {
     }
     
     
+    
+    
     public void setRememberMe(){
         String array[] = RememberMe.getRememberMe();
         txtName.setText(array[0]);
@@ -93,6 +95,10 @@ public class LoginForm extends javax.swing.JFrame {
         
     }
     
+    public void toFriendsForm(){
+        
+    }
+    
     public void signIn(){
       
         disableAll();
@@ -102,7 +108,7 @@ public class LoginForm extends javax.swing.JFrame {
             return;
         }
         
-        check = ChatClient.getAuthentication(txtName.getText(), fldPassword.getText());
+        ChatClient.getAuthentication(txtName.getText(), fldPassword.getText());
         if(check){
             rememberMe();
             ChatClient.setName(txtName.getText());

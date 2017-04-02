@@ -132,19 +132,17 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }
     
-    public static void getGrpMsg(String name, String gName, String msg){
-        if(jGroup.getSelectedValue().startsWith(gName)){
+    public static void getGrpMsg(String gName, String msg){
+        if(!jGroup.getSelectedValue().startsWith(gName)){
+            for(int i = 0; i < groupList.size(); i++){
+                if(groupList.get(i).startsWith(gName)){
+                    groupList.remove(i);
+                    groupList.add(0, gName + " *");
+                }
+            }   
+        }else{
             ChatText.append(msg);
         }
-//            for(int i = 0; i < friendsList.size(); i++){
-//                if(friendsList.get(i).startsWith(name)){
-//                    friendsList.remove(i);
-//                    friendsList.add(0, name + " *");
-//                }
-//            }
-//        }else{
-//            
-//        //}
     }
     
     public static void getFTNotification(String name, String sender){
@@ -176,6 +174,10 @@ public class FriendsForm extends javax.swing.JFrame {
     
     public static String getSelectedFList(){
         return JFriendList.getSelectedValue();
+    }
+    
+    public static String getSelectedGList(){
+        return jGroup.getSelectedValue();
     }
     
     public static void showMessage(String msg){
@@ -515,6 +517,11 @@ public class FriendsForm extends javax.swing.JFrame {
         });
 
         btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneRightLayout = new javax.swing.GroupLayout(paneRight);
         paneRight.setLayout(paneRightLayout);
@@ -579,7 +586,10 @@ public class FriendsForm extends javax.swing.JFrame {
 
     private void txtChatFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChatFieldActionPerformed
         // TODO add your handling code here:
-        sendMsg();
+        if(Friendflag)
+            sendMsg();
+        else if(Groupflag)
+            sendGrpMsg();
     }//GEN-LAST:event_txtChatFieldActionPerformed
 
     private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
@@ -768,6 +778,12 @@ public class FriendsForm extends javax.swing.JFrame {
         
         notificationList.remove(jNotifList.getSelectedIndex());
     }//GEN-LAST:event_jNotifListMouseClicked
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        new LoginForm();
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

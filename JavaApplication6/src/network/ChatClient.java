@@ -122,6 +122,24 @@ public class ChatClient {
         }
     }
     
+    public static void sendGroupInvite(String name){
+        try{
+            ou.writeUTF("GROUPINVITE " + name);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void changePassword(String newPass){
+        try{
+            ou.writeUTF("UPDATEPASSWORD " + newPass);
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void groupInvite(String name, String friend){
         try{
             ou.writeUTF("GROUPINVITE " + friend + " " + name);
@@ -209,19 +227,16 @@ public class ChatClient {
         }
     }
     
-    public static boolean getAuthentication(String name, String pass){
+    public static void getAuthentication(String name, String pass){
         if(ou == null)
-            return false;
+            return;
         
         try{
             ou.writeUTF("SIGNIN " + name + " " + pass);
             ou.flush();
-            Authentication = in.readBoolean();
-            return Authentication;
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-            return false;
     }
     
     public static boolean getRegistration(String name, String password, String email){

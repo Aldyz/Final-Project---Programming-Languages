@@ -25,6 +25,13 @@ public class Validator {
         return true;
     }
     
+    public static boolean isOverCharLimit(String word){
+        if(word.length()>30){
+            return true;
+        }else
+            return false;
+    }
+    
     public static boolean containsSpace(String word){
         if(word.contains(" "))
             return true;
