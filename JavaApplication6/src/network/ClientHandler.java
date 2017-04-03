@@ -8,8 +8,6 @@ package network;
 import Database.BlockListHandler;
 import Database.DatabaseFunction;
 import Database.FriendListHandler;
-import Database.GroupHandler;
-import Database.GroupListHandler;
 import com.ConnectedUser;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -50,7 +48,7 @@ public class ClientHandler implements Runnable{
                 System.out.println(input);
                 if(input.startsWith("SIGNIN")){
                     boolean check = DatabaseFunction.SignInChecker(array[1], array[2]);
-                    ou.writeBoolean(check);
+                    ou.writeUTF("SIGNINRSLT " + check);
                     ou.flush();
                     if(check){
                         System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " has signed in as: " + array[1]);
@@ -60,10 +58,7 @@ public class ClientHandler implements Runnable{
                         ou.flush();
                         ou.writeUTF(BlockListHandler.getBlockList(user.getName()));
                         ou.flush();
-                        ou.writeUTF(GroupListHandler.getList(user.getName()));
-                        ou.flush();
-                
-                        user.setGroup(GroupListHandler.getList(user.getName()));
+                        
                         user.setBlocked(BlockListHandler.getBlockList(user.getName()));
                         
                     }else{
@@ -74,7 +69,6 @@ public class ClientHandler implements Runnable{
                     if(check){
                         DatabaseFunction.Insert(array[1], array[2], array[3]);
                         FriendListHandler.createList(array[1]);
-                        GroupListHandler.createList(array[1]);
                     }
                     ou.writeBoolean(check);
                     ou.flush();
@@ -109,17 +103,6 @@ public class ClientHandler implements Runnable{
                 }else if(input.startsWith("UNBLOCK")){
                     user.removeBlocked(array[1]);
                     BlockListHandler.insertList(user.getBlocked(), user.getName());
-                }else if(input.startsWith("CREATEGROUP")){
-                    boolean flag = GroupHandler.isExist(array[1]);
-                    flag = !flag;
-                    if(flag){
-                        GroupListHandler.insertMember(user.getName(), input.substring(array[0].length()+1));
-                        GroupHandler.createGroup(input.substring(array[0].length()+1));
-                        user.addGroup(input.substring(array[0].length()+1));
-                    }
-                    System.out.println(flag);
-                    ou.writeUTF("CREATGRUPRSLT " + flag);
-                    ou.flush();
                 }else if(input.startsWith("FILESEND ")){
                     if(BlockListHandler.checkDataExist(array[1], user.getName()))
                         continue;

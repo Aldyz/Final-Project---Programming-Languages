@@ -6,10 +6,10 @@
 package network;
 
 import Database.ChatHistoryHandler;
-import Database.GroupHistoryHandler;
 import GUI.FriendsForm;
 import GUI.LoadingForm;
 import com.AudioFile;
+import com.Controller;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,7 +40,13 @@ public class ClientThread implements Runnable{
                 input = ChatClient.in.readUTF();
                 array = input.split(" ");
                 System.out.println(input);
-                if(input.startsWith("RECEIVEMSG")){
+                if(input.startsWith("SIGNINRSLT")){
+                    if(Boolean.parseBoolean(array[1])){
+                        Controller.signInAccept();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Login Failed");
+                    }
+                }else if(input.startsWith("RECEIVEMSG")){
                     String msg = array[1] + ": "+input.substring(array[0].length() + array[1].length() + 2);
                     new Thread(new AudioFile()).start();
                     if(FriendsForm.getSelectedFList() == null){
@@ -67,26 +73,6 @@ public class ClientThread implements Runnable{
                         FriendsForm.showMessage("User already in friend list");
                 }else if(input.startsWith("UPDATEFL")){
                     FriendsForm.addFriend(array[1]);
-                }else if(input.startsWith("CREATGRUPRSLT")){
-                    System.out.println(Boolean.parseBoolean(array[1]));
-                    if(Boolean.parseBoolean(array[1]))
-                        FriendsForm.addGroup();
-                    else
-                        FriendsForm.showMessage("Group name already used");
-                }else if(input.startsWith("GRUPRMVD")){
-                    
-                }else if(input.startsWith("GROUPINVITE")){
-                    
-                }else if(input.startsWith("GRUPMSG")){
-                    String msg = array[1] + ": " + input.substring(array[0].length() + array[1].length() + 3 + array[2].length());
-                    new Thread(new AudioFile()).start();
-                    if(FriendsForm.getSelectedGList() == null){
-                        GroupHistoryHandler.addHistory(array[2],  msg);
-                        continue;
-                    }
-                    
-                    FriendsForm.getGrpMsg(array[2], msg);
-                    GroupHistoryHandler.addHistory(array[2], msg);
                 }else if(input.startsWith("FILENOTIF")){
                     FriendsForm.getFTNotification(input.substring(array[0].length() + 3 + array[1].length() + array[2].length()), array[1]);
                     friendTemp = array[1];

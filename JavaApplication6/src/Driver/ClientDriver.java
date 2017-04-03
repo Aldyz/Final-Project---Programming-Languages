@@ -6,6 +6,7 @@
 package Driver;
 
 import GUI.LoginForm;
+import com.Controller;
 import network.ChatClient;
 
 /**
@@ -14,28 +15,9 @@ import network.ChatClient;
  */
 public class ClientDriver {
     
-    public static void setLooksandFeel(){
-        try {
-            javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
-                   
-            
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-    
     public static void main(String[] args) {
         
-        setLooksandFeel();
-        ChatClient c = ChatClient.getInstance();
-        ChatClient.setIP();
-        c.Connect();
-        new LoginForm();
+        new Controller();
+
     }
 }
