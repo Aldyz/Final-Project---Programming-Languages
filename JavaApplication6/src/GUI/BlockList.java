@@ -49,10 +49,12 @@ public class BlockList extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jBlockedList.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         jBlockedList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jBlockedList.setToolTipText("");
         jScrollPane1.setViewportView(jBlockedList);
 
+        bttnUnblock.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         bttnUnblock.setText("Unblock");
         bttnUnblock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +73,7 @@ public class BlockList extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(89, 89, 89)
                 .addComponent(bttnUnblock)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

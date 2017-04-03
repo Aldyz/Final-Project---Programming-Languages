@@ -5,6 +5,7 @@
  */
 package network;
 
+import GUI.LoginForm;
 import java.io.IOException;
 import java.net.Socket;
 import java.io.DataInputStream;

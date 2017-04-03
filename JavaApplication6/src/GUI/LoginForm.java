@@ -132,6 +132,7 @@ public class LoginForm extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(240, 240));
         setResizable(false);
 
+        btnLogin.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +140,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        btnSignUp.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         btnSignUp.setText("SignUp");
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,10 +148,10 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         lblUsername.setText("UserName");
 
-        lblPassword.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         lblPassword.setText("Password");
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -158,14 +160,18 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        chBoxRemember.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         chBoxRemember.setText("Remember me");
 
+        btnIp.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         btnIp.setText("IP Address");
         btnIp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIpActionPerformed(evt);
             }
         });
+
+        lblPic.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
 
         fldPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +214,7 @@ public class LoginForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)

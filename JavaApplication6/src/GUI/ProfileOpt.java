@@ -54,12 +54,16 @@ public class ProfileOpt extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        lblPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblPassword.setText("Password");
 
+        lblRePassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblRePassword.setText("Re-type Password");
 
+        lblProfile.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblProfile.setText("PROFILE");
 
+        ChangePass.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         ChangePass.setText("Change Password");
         ChangePass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,16 +71,23 @@ public class ProfileOpt extends javax.swing.JDialog {
             }
         });
 
+        lblUser.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblUser.setText("User");
 
+        lblUsername.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblUsername.setText("jLabel7");
 
+        openFolder.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         openFolder.setText("Open Sent Folder");
         openFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openFolderActionPerformed(evt);
             }
         });
+
+        jPasswordField1.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+
+        jPasswordField2.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,7 +106,7 @@ public class ProfileOpt extends javax.swing.JDialog {
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblUsername)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)))
+                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPasswordField2))))
@@ -114,7 +125,7 @@ public class ProfileOpt extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(lblProfile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
                     .addComponent(lblUser))
@@ -126,7 +137,7 @@ public class ProfileOpt extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRePassword)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(openFolder)
                 .addGap(18, 18, 18)
                 .addComponent(ChangePass)

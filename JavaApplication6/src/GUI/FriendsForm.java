@@ -226,10 +226,14 @@ public class FriendsForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
+        tabGroup.setFocusCycleRoot(true);
+        tabGroup.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        JFriendList.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        JFriendList.setFont(new java.awt.Font("Monotype Corsiva", 0, 20)); // NOI18N
         JFriendList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        JFriendList.setFocusCycleRoot(true);
         JFriendList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JFriendListMouseClicked(evt);
@@ -237,28 +241,36 @@ public class FriendsForm extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(JFriendList);
 
+        btnBlock.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnBlock.setText("Block");
+        btnBlock.setFocusCycleRoot(true);
         btnBlock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBlockActionPerformed(evt);
             }
         });
 
+        bttDltChat.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         bttDltChat.setText("Delete Chat");
+        bttDltChat.setFocusCycleRoot(true);
         bttDltChat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttDltChatActionPerformed(evt);
             }
         });
 
+        btnUnblock.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnUnblock.setText("Unblock");
+        btnUnblock.setFocusCycleRoot(true);
         btnUnblock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUnblockActionPerformed(evt);
             }
         });
 
+        bttnDeleteFriend.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         bttnDeleteFriend.setText("Delete Friend");
+        bttnDeleteFriend.setFocusCycleRoot(true);
         bttnDeleteFriend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnDeleteFriendActionPerformed(evt);
@@ -269,31 +281,32 @@ public class FriendsForm extends javax.swing.JFrame {
         paneFriend.setLayout(paneFriendLayout);
         paneFriendLayout.setHorizontalGroup(
             paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
             .addGroup(paneFriendLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(btnBlock)
-                .addGap(55, 55, 55)
+                .addGap(40, 40, 40)
+                .addComponent(btnBlock, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bttnDeleteFriend)
                     .addGroup(paneFriendLayout.createSequentialGroup()
-                        .addComponent(bttDltChat)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnUnblock)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(bttnDeleteFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneFriendLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(bttDltChat)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUnblock)
+                .addGap(42, 42, 42))
         );
         paneFriendLayout.setVerticalGroup(
             paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneFriendLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bttDltChat)
                     .addComponent(btnUnblock)
-                    .addComponent(btnBlock)
-                    .addComponent(bttDltChat))
+                    .addComponent(btnBlock))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bttnDeleteFriend)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bttnDeleteFriend))
         );
 
         tabGroup.addTab("Friend List", paneFriend);
@@ -301,12 +314,12 @@ public class FriendsForm extends javax.swing.JFrame {
         paneAddFriend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paneAddFriend.setForeground(new java.awt.Color(153, 102, 0));
 
-        lblId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblId.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         lblId.setText("ID Number");
 
-        txtId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtId.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
 
-        btnSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSearch.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -314,7 +327,7 @@ public class FriendsForm extends javax.swing.JFrame {
             }
         });
 
-        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,7 +335,7 @@ public class FriendsForm extends javax.swing.JFrame {
             }
         });
 
-        lblName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblName.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout paneAddFriendLayout = new javax.swing.GroupLayout(paneAddFriend);
@@ -330,7 +343,7 @@ public class FriendsForm extends javax.swing.JFrame {
         paneAddFriendLayout.setHorizontalGroup(
             paneAddFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneAddFriendLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(181, Short.MAX_VALUE)
                 .addGroup(paneAddFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneAddFriendLayout.createSequentialGroup()
                         .addComponent(lblAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,7 +366,7 @@ public class FriendsForm extends javax.swing.JFrame {
             paneAddFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneAddFriendLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblAddPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(lblAddPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addGap(48, 48, 48)
                 .addGroup(paneAddFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
@@ -369,7 +382,7 @@ public class FriendsForm extends javax.swing.JFrame {
 
         tabGroup.addTab("Add Friend", paneAddFriend);
 
-        jNotifList.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jNotifList.setFont(new java.awt.Font("Monotype Corsiva", 0, 20)); // NOI18N
         jNotifList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jNotifList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -382,11 +395,11 @@ public class FriendsForm extends javax.swing.JFrame {
         paneNotif.setLayout(paneNotifLayout);
         paneNotifLayout.setHorizontalGroup(
             paneNotifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
         );
         paneNotifLayout.setVerticalGroup(
             paneNotifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
         );
 
         tabGroup.addTab("Notifications", paneNotif);
@@ -403,23 +416,27 @@ public class FriendsForm extends javax.swing.JFrame {
             paneLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneLeftLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tabGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        txtChatField.setFocusCycleRoot(true);
         txtChatField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtChatFieldActionPerformed(evt);
             }
         });
 
+        btnAddFile.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnAddFile.setText("Add File");
+        btnAddFile.setFocusCycleRoot(true);
         btnAddFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddFileActionPerformed(evt);
             }
         });
 
+        btnSend.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnSend.setText("Send");
         btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,16 +448,21 @@ public class FriendsForm extends javax.swing.JFrame {
         ChatText.setColumns(20);
         ChatText.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         ChatText.setRows(5);
+        ChatText.setFocusCycleRoot(true);
         jScrollPane1.setViewportView(ChatText);
 
+        btnProfile.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnProfile.setText("Profile");
+        btnProfile.setFocusCycleRoot(true);
         btnProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProfileActionPerformed(evt);
             }
         });
 
+        btnLogout.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnLogout.setText("Logout");
+        btnLogout.setFocusCycleRoot(true);
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);

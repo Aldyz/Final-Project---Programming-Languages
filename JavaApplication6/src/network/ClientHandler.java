@@ -8,11 +8,13 @@ package network;
 import Database.BlockListHandler;
 import Database.DatabaseFunction;
 import Database.FriendListHandler;
+import GUI.LoginForm;
 import com.ConnectedUser;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Lenovo
