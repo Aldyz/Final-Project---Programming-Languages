@@ -1,2 +1,15 @@
 veronika:               
 veronika: !   !
+Aldi: Hello
+Aldi: Hi
+Aldi: SOUND
+Aldi: hello
+Aldi: Hello
+Aldi: Hi
+Aldi: Hello
+Aldi: Hi
+Aldi: Hello
+veronika: hi
+Aldi: Hello
+Aldi: Hello
+Aldi: Hello

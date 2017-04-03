@@ -87,7 +87,7 @@ public class LoginForm extends javax.swing.JFrame {
     }
     
     public void rememberMe(){
-            if(chBoxRemember.isSelected() && check){
+            if(chBoxRemember.isSelected()){
                 RememberMe.RememberLogin(txtName.getText(), fldPassword.getText());
             }else{
                 RememberMe.RememberLogin("", "");
@@ -95,21 +95,17 @@ public class LoginForm extends javax.swing.JFrame {
         
     }
     
-    public void toFriendsForm(){
-        
-    }
-    
     public void signIn(){
-      
-        disableAll();
+        
+        rememberMe();
         
         if(Validator.isEmpty(txtName.getText()) || Validator.isEmpty(fldPassword.getText())){
             JOptionPane.showMessageDialog(this, "Don't leave these empty");
             return;
         }
         
+        disableAll();
         ChatClient.getAuthentication(txtName.getText(), fldPassword.getText());
-            rememberMe();
             
     }
 

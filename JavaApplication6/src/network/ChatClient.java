@@ -21,7 +21,6 @@ public class ChatClient {
     public static Socket s;
     public static DataInputStream in;
     public static DataOutputStream ou;
-    private static boolean Authentication;
     private static String IP;
     private static String name;
     public static byte[] arr;;
@@ -52,15 +51,6 @@ public class ChatClient {
     }
     
     public static String getFriendList(){
-        try{
-            return in.readUTF();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-    
-    public static String getGroupList(){
         try{
             return in.readUTF();
         }catch(IOException e){
@@ -113,36 +103,9 @@ public class ChatClient {
         }
     }
     
-    public static void sendGroupMsg(String name, String msg){
-        try{
-            ou.writeUTF("GSEND " + name + " " + msg);
-            ou.flush();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public static void sendGroupInvite(String name){
-        try{
-            ou.writeUTF("GROUPINVITE " + name);
-            ou.flush();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
     public static void changePassword(String newPass){
         try{
             ou.writeUTF("UPDATEPASSWORD " + newPass);
-            ou.flush();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public static void groupInvite(String name, String friend){
-        try{
-            ou.writeUTF("GROUPINVITE " + friend + " " + name);
             ou.flush();
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -191,9 +154,9 @@ public class ChatClient {
         }
     }
     
-    public static void createGroup(String name){
+    public static void deleteFriend(String user){
         try{
-            ou.writeUTF("CREATEGROUP " + name);
+            ou.writeUTF("DELETEFRIEND " + user);
             ou.flush();
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -239,12 +202,12 @@ public class ChatClient {
         }
     }
     
-    public static boolean getRegistration(String name, String password, String email){
+    public static boolean getRegistration(String name, String password){
         if(ou == null)
             return false;
         
         try{
-            ou.writeUTF("SIGNUP " + name + " " + password + " " + email);
+            ou.writeUTF("SIGNUP " + name + " " + password);
             ou.flush();
             return in.readBoolean();
         }catch(IOException e){

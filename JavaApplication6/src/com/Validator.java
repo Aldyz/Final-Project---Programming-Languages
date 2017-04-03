@@ -25,8 +25,8 @@ public class Validator {
         return true;
     }
     
-    public static boolean isOverCharLimit(String word){
-        if(word.length()>30){
+    public static boolean isOverCharLimit(String word, int count){
+        if(word.length()>count){
             return true;
         }else
             return false;

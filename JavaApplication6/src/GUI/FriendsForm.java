@@ -7,6 +7,7 @@ package GUI;
 
 import Database.ChatHistoryHandler;
 import com.AudioFile;
+import com.Controller;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -36,13 +37,10 @@ import sun.audio.*;
  */
 public class FriendsForm extends javax.swing.JFrame {
 
-    static String friendAdd;
-    static DefaultListModel<String> friendsList;
-    static String groupName;
-    static boolean Groupflag;
-    static boolean Friendflag;
-    static DefaultListModel<String> notificationList;
+    public static String friendAdd;
     public static String fileName;
+    public static DefaultListModel<String> friendsList;
+    public static DefaultListModel<String> notificationList;
     
     /**
      * Creates new form FriendsForm
@@ -54,17 +52,19 @@ public class FriendsForm extends javax.swing.JFrame {
         new BlockList();
         setImage();
         setList();
-        Groupflag = false;
-        Friendflag = false;
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+    
+    public void disableAll(){
         txtChatField.setEnabled(false);
         btnBlock.setEnabled(false);
         bttDltChat.setEnabled(false);
         btnUnblock.setEnabled(false);
         btnAddFile.setEnabled(false);
         btnSend.setEnabled(false);
+        bttnDeleteFriend.setEnabled(false);
     }
     
     public void setList(){
@@ -121,6 +121,19 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }
     
+    public void enableAll(){
+        ChatText.setEnabled(true);
+        txtChatField.setEnabled(true);
+        btnBlock.setEnabled(true);
+        bttDltChat.setEnabled(true);
+        btnUnblock.setEnabled(true);
+        btnProfile.setEnabled(true);
+        btnLogout.setEnabled(true);
+        btnAddFile.setEnabled(true);
+        btnSend.setEnabled(true);
+        bttnDeleteFriend.setEnabled(true);
+    }
+    
     
     public static void getFTNotification(String name, String sender){
         notificationList.addElement("File Transfer Request: " + name + ", From: " + sender);
@@ -155,9 +168,13 @@ public class FriendsForm extends javax.swing.JFrame {
     }
     
     public static void addFriend(String name){
-        friendsList.addElement(name);
-        JFriendList.setModel(friendsList);
-        ChatHistoryHandler.createHistory(name);
+        if(friendsList.size()>100){
+            JOptionPane.showMessageDialog(null, "Friend List is already over limit.");
+        }else{
+            friendsList.addElement(name);
+            JFriendList.setModel(friendsList);
+            ChatHistoryHandler.createHistory(name);
+        }
     }
    
     
@@ -186,6 +203,7 @@ public class FriendsForm extends javax.swing.JFrame {
         btnBlock = new javax.swing.JButton();
         bttDltChat = new javax.swing.JButton();
         btnUnblock = new javax.swing.JButton();
+        bttnDeleteFriend = new javax.swing.JButton();
         paneAddFriend = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -240,30 +258,42 @@ public class FriendsForm extends javax.swing.JFrame {
             }
         });
 
+        bttnDeleteFriend.setText("Delete Friend");
+        bttnDeleteFriend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnDeleteFriendActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneFriendLayout = new javax.swing.GroupLayout(paneFriend);
         paneFriend.setLayout(paneFriendLayout);
         paneFriendLayout.setHorizontalGroup(
             paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
             .addGroup(paneFriendLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(btnBlock)
-                .addGap(49, 49, 49)
-                .addComponent(bttDltChat)
-                .addGap(38, 38, 38)
-                .addComponent(btnUnblock)
+                .addGap(55, 55, 55)
+                .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bttnDeleteFriend)
+                    .addGroup(paneFriendLayout.createSequentialGroup()
+                        .addComponent(bttDltChat)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnUnblock)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneFriendLayout.setVerticalGroup(
             paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneFriendLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneFriendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUnblock)
                     .addComponent(btnBlock)
-                    .addComponent(bttDltChat)
-                    .addComponent(btnUnblock))
-                .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(bttDltChat))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bttnDeleteFriend)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabGroup.addTab("Friend List", paneFriend);
@@ -372,7 +402,7 @@ public class FriendsForm extends javax.swing.JFrame {
         paneLeftLayout.setVerticalGroup(
             paneLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneLeftLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tabGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -469,9 +499,9 @@ public class FriendsForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paneRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paneLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(paneRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paneLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -532,15 +562,6 @@ public class FriendsForm extends javax.swing.JFrame {
         }else{
             ChatText.setText(ChatHistoryHandler.getHistory(JFriendList.getSelectedValue()));
         }
-        ChatText.setEnabled(true);
-        txtChatField.setEnabled(true);
-        btnBlock.setEnabled(true);
-        bttDltChat.setEnabled(true);
-        btnUnblock.setEnabled(true);
-        btnProfile.setEnabled(true);
-        btnLogout.setEnabled(true);
-        btnAddFile.setEnabled(true);
-        btnSend.setEnabled(true);
     }//GEN-LAST:event_JFriendListMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -597,7 +618,7 @@ public class FriendsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void bttDltChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttDltChatActionPerformed
-        // TODO add your handling code here:
+        //  TODO add your handling code here:
         ChatHistoryHandler.clearHistory(JFriendList.getSelectedValue());
         ChatText.setText("");
     }//GEN-LAST:event_bttDltChatActionPerformed
@@ -619,13 +640,17 @@ public class FriendsForm extends javax.swing.JFrame {
         }
         
         notificationList.remove(jNotifList.getSelectedIndex());
+        enableAll();
     }//GEN-LAST:event_jNotifListMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        new LoginForm();
-        this.dispose();
+        Controller.logOut();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void bttnDeleteFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDeleteFriendActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bttnDeleteFriendActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -640,6 +665,7 @@ public class FriendsForm extends javax.swing.JFrame {
     private static javax.swing.JButton btnSend;
     private javax.swing.JButton btnUnblock;
     private javax.swing.JButton bttDltChat;
+    private javax.swing.JButton bttnDeleteFriend;
     private javax.swing.JList<String> jNotifList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

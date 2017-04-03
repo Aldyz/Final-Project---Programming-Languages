@@ -5,19 +5,21 @@
  */
 package Database;
 
+import static Database.ListHandler.setList;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Lenovo
  */
-public class FriendListHandler {
+public class FriendListHandler extends ListHandler{
     
-    public static boolean checkDataExist(String user, String friend){
+    public static boolean checkFriendExist(String user, String friend){
         String check = "";
         try{
             FileReader fr = new FileReader("FriendsList\\" + user + "FriendsList.txt");
@@ -34,19 +36,16 @@ public class FriendListHandler {
         return false;
     }
     
-    public static void addFriend(String user, String friend){
-        try{
-            FileWriter fw = new FileWriter("FriendsList\\" + user + "FriendsList.txt", true);
-            PrintWriter pw = new PrintWriter(fw);
-            pw.println(friend);
-            pw.close();
-            fw.close();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+    public static void setFriendList(ArrayList<String> list, String user){
+        setList(list, user + "FriendsList", "FriendsList");
     }
     
-    public static void createList(String user){
+    public static void addFriend(String user, String friend){
+        insertList(user + "FriendsList", friend, "FriendsList");
+        insertList(friend + "FriendsList", user, "FriendsList");
+    }
+    
+    public static void createFriendList(String user){
         try{
             FileWriter fw = new FileWriter("FriendsList\\" + user + "FriendsList.txt");
             PrintWriter pw = new PrintWriter(fw);
@@ -73,4 +72,5 @@ public class FriendListHandler {
         }
         return list;
     }
+    
 }

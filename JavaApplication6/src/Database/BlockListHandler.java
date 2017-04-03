@@ -15,9 +15,9 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public class BlockListHandler {
+public class BlockListHandler extends ListHandler{
     
-    public static boolean checkDataExist(String user, String friend){
+    public static boolean checkBlockExist(String user, String friend){
          String check = "";
         try{
             FileReader fr = new FileReader("BlockList\\" + user + "BlockList.txt");
@@ -29,24 +29,18 @@ public class BlockListHandler {
             br.close();
             fr.close();
         }catch(IOException e){
-            createList(user);
+            createBlockList(user);
             System.out.println(e.getMessage());
         }
         return false;
     }
     
-    public static void insertList(ArrayList<String> list, String user){
-        try{
-            FileWriter fw = new FileWriter("BlockList\\" + user + "BlockList.txt",false);
-            PrintWriter pw = new PrintWriter(fw);
-            for(int i = 0; i < list.size(); i++){
-                pw.println(list.get(i));
-            }
-            pw.close();
-            fw.close();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+    public static void setBlockList(ArrayList<String> list, String user){
+        setList(list, user + "BlockList", "BlockList");
+    }
+    
+    public static void addBlockList(String name, String friend){
+        insertList(name + "BlockList", friend, "BlockList");
     }
     
     public static String getBlockList(String user){
@@ -61,13 +55,13 @@ public class BlockListHandler {
             br.close();
             fr.close();
         }catch(IOException e){
-            createList(user);
+            createBlockList(user);
             System.out.println(e.getMessage());
         }
         return list;
     }
     
-    public static void createList(String user){
+    public static void createBlockList(String user){
         try{
             FileWriter fw = new FileWriter("BlockList\\" + user + "BlockList.txt");
             PrintWriter pw = new PrintWriter(fw);

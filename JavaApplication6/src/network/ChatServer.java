@@ -18,7 +18,7 @@ import java.util.Iterator;
  *
  * @author Lenovo
  */
-public class ChatServer implements Runnable{
+public class ChatServer{
     
     private static final int port = 8000;
     public static ArrayList<ConnectedUser> Connected;
@@ -27,11 +27,6 @@ public class ChatServer implements Runnable{
     
     public ChatServer(){
         Connected = new ArrayList<ConnectedUser>();
-    }
-
-    @Override
-    public void run() {
-        
     }
     
     
@@ -70,9 +65,6 @@ public class ChatServer implements Runnable{
         }
     }
     
-     public static void Update(String user, String added){
-        
-    }
      
      public static int userExist(String name){
          for(int i = 0; i < Connected.size(); i++){
@@ -83,13 +75,5 @@ public class ChatServer implements Runnable{
          return -1;
      }
      
-     public static ArrayList<Integer> getGroupExist(String name, String userName){
-         ArrayList<Integer> indexArray = new ArrayList<Integer>();
-         for(int i = 0; i < Connected.size(); i++){
-             if(Connected.get(i).groupExist(name) && !Connected.get(i).getName().equals(userName))
-                 indexArray.add(i);
-         }
-         return indexArray;
-     }
    
 }

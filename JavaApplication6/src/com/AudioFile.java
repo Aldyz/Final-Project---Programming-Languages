@@ -6,6 +6,7 @@
 package com;
 
 import java.io.*;
+import java.net.URL;
 import sun.audio.*;
 
 /**
@@ -17,7 +18,7 @@ public class AudioFile implements Runnable{
     @Override
     public void run() {
         try{
-            InputStream infile = new FileInputStream(new File("C:\\Users\\Lenovo\\Documents\\Programming Languages\\Final Project\\Final-Project---Programming-Languages\\JavaApplication6\\src\\com\\sms-alert-1-daniel_simon.wav"));
+            InputStream infile = getClass().getResourceAsStream("sms-alert-1-daniel_simon.wav");
 
             // create an audiostream from the inputstream 
             AudioStream audioStream = new AudioStream(infile);
@@ -27,6 +28,11 @@ public class AudioFile implements Runnable{
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+    }
+    
+    public static void main(String[] args){
+        Thread t = new Thread(new AudioFile());
+        t.start();
     }
        
 

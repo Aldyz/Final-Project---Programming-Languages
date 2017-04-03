@@ -50,7 +50,7 @@ public final class DatabaseFunction
         }
     }
     
-    public static void Insert(String name, String password, String email)
+    public static void Insert(String name, String password)
     {
             try
             {
@@ -58,7 +58,7 @@ public final class DatabaseFunction
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date dt = new Date();
                 String currentDate = dateFormat.format(dt);
-                sAction = "INSERT INTO USERSDATA (NAME, PASSWORD, EMAIL, SIGNUP, LASTSIGNIN) VALUES ('" + name + "', '" + password + "', '" + email + "', '"+ currentDate + "', '" + currentDate +"')";
+                sAction = "INSERT INTO USERSDATA (NAME, PASSWORD, SIGNUP) VALUES ('" + name + "', '" + password + "', '"+ currentDate + "')";
                 stmt.executeUpdate(sAction);
                 refresh();
             }
@@ -106,15 +106,14 @@ public final class DatabaseFunction
         }
     }
     
-    public static boolean SignUpChecker(String name, String email){
+    public static boolean SignUpChecker(String name){
         
         try{
-            PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ? OR email = ?");
+            PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ?");
             ps.setString(1, name);
-            ps.setString(2, email);
             ResultSet temp = ps.executeQuery();
             while(temp.next()){
-                if(temp.getString("name").equals(name) || temp.getString("email").equals(email))
+                if(temp.getString("name").equals(name))
                     return false;
             }
             temp.close();

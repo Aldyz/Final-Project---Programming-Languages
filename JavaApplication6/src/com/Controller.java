@@ -14,7 +14,8 @@ import network.ChatClient;
  * @author Lenovo
  */
 public class Controller {
-        
+    
+    static FriendsForm ff;
     static LoginForm lf;
     
     public Controller(){
@@ -29,7 +30,12 @@ public class Controller {
     public static void signInAccept(){
         ChatClient.setName(LoginForm.txtName.getText());
         lf.dispose();
-        new FriendsForm();
+        ff = new FriendsForm();
+    }
+    
+    public static void logOut(){
+        ff.dispose();
+        lf = new LoginForm();
     }
     
     public void setLooksandFeel(){

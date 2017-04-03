@@ -33,10 +33,8 @@ public class SignUpForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtEmail = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
         lblUsername = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
         lblConfirmPassword = new javax.swing.JLabel();
@@ -47,15 +45,10 @@ public class SignUpForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         txtUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         lblUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblUsername.setText("UserName");
-
-        lblEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblEmail.setText("E-mail");
 
         lblPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblPassword.setText("Password");
@@ -87,19 +80,15 @@ public class SignUpForm extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPassword)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblConfirmPassword)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(45, 45, 45)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblEmail)
-                                        .addComponent(lblUsername)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblConfirmPassword)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(lblUsername))
+                            .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtUsername)
-                            .addComponent(txtEmail)
                             .addComponent(txtPassword)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnConfirm)
@@ -113,23 +102,18 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(lblWelcome)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblUsername)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblEmail))
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsername)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPassword))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPassword)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfirmPassword)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConfirmPassword))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btnConfirm)
                 .addGap(29, 29, 29))
         );
@@ -141,21 +125,27 @@ public class SignUpForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean length1 = Validator.isEmpty(txtUsername.getText());
         boolean length2 = Validator.isEmpty(txtPassword.getText());
-        boolean length3 = Validator.isEmpty(txtEmail.getText());
-        boolean length4 = Validator.isEmpty(txtConfirmPassword.getText());
-        if(length1 || length2 || length3 || length4 ){
+        boolean length3 = Validator.isEmpty(txtConfirmPassword.getText());
+        if(length1 || length2 || length3 ){
             JOptionPane.showMessageDialog(this, "Don't leave any boxes empty");
             return;
         }
         
-        if(txtUsername.getText().trim().contains(" ")){
+        if(Validator.containsSpace(txtUsername.getText())){
             JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
             return;
-        }else if(txtPassword.getText().trim().contains(" ")){
+        }else if(Validator.containsSpace(txtPassword.getText())){
             JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
             return;
-        }else if(txtEmail.getText().trim().contains(" ")){
-            JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
+        }
+        
+        if(Validator.isOverCharLimit(txtUsername.getText(), 20)){
+            JOptionPane.showMessageDialog(this, "Name can only have 20 characters");
+            return;
+        }
+        
+        if(Validator.isOverCharLimit(txtPassword.getText(), 30)){
+            JOptionPane.showMessageDialog(this, "Password can only have 30 characters");
             return;
         }
         
@@ -169,7 +159,7 @@ public class SignUpForm extends javax.swing.JFrame {
             return;
         }
         
-        boolean flag = ChatClient.getRegistration(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
+        boolean flag = ChatClient.getRegistration(txtUsername.getText(), txtPassword.getText());
         if(flag){
             new LoginForm();
             this.dispose();
@@ -221,12 +211,10 @@ public class SignUpForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
     private javax.swing.JLabel lblConfirmPassword;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JPasswordField txtConfirmPassword;
-    private javax.swing.JTextField txtEmail;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

@@ -20,14 +20,12 @@ public class ConnectedUser {
     private Socket s;
     private DataOutputStream ou;
     private ArrayList<String> Friends;
-    private ArrayList<String> Groups;
     private ArrayList<String> Blocked;
     
     public ConnectedUser(String Name, Socket s){
         this.s = s;
         this.Name = Name;
         Friends = new ArrayList<String>();
-        Groups = new ArrayList<String>();
         Blocked = new ArrayList<String>();
         try{
             ou = new DataOutputStream(s.getOutputStream());
@@ -53,11 +51,21 @@ public class ConnectedUser {
             System.out.println(e.getMessage());
         }
     }
+
+    public ArrayList<String> getFriends() {
+        return Friends;
+    }
+
+    public void setFriends(ArrayList<String> Friends) {
+        this.Friends = Friends;
+    }
     
     public void sendFile(byte[] arr, int size, String name){
         try{
+            System.out.println("Sending File");
             ou.writeUTF("SENDFILE " + size + " " + name);
             ou.flush();
+            System.out.println("Sending Data");
             ou.write(arr);
             ou.flush();
         }catch(IOException e){
@@ -85,38 +93,7 @@ public class ConnectedUser {
         }
     }
     
-    public void setGroup(String group){
-        String array[] = group.split(" ");
-        for(int i = 0; i < array.length; i++){
-            this.Groups.add(array[i]);
-        }
-    }
     
-    public void addGroup(String name){
-        Groups.add(name);
-    }
-    
-    public void sendGrpMsg(String name, String GroupName, String msg){
-        try{
-            System.out.println("Yo");
-            ou.writeUTF("GRUPMSG " + name + " " + GroupName + " " + msg);
-            ou.flush();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public boolean groupExist(String name){
-        for(int i = 0; i < Groups.size(); i++){
-            if(Groups.get(i).equals(name))
-                return true;
-        }
-        return false;
-    }
-    
-    public void removeGroup(String name){
-        Groups.remove(name);
-    }
     
     public void addBlocked(String user){
         Blocked.add(user);
@@ -124,6 +101,10 @@ public class ConnectedUser {
     
     public void removeBlocked(String user){
         Blocked.remove(user);
+    }
+    
+    public void removeFriend(String user){
+        Friends.remove(user);
     }
     
     public void setFriends(String friends){

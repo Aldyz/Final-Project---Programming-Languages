@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.Validator;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -150,6 +151,17 @@ public class ProfileOpt extends javax.swing.JDialog {
         jPasswordField1.setText("");
         jPasswordField2.setText("");
         JOptionPane.showMessageDialog(null, "Password Updated");
+        String newPass = jPasswordField1.getText();
+        if(Validator.isEmpty(newPass)){
+            JOptionPane.showMessageDialog(this, "Don't leave any boxes empty");
+            return;
+        }
+        
+        if(Validator.containsSpace(newPass)){
+            JOptionPane.showMessageDialog(this, "Don't use whitespace is any of the boxes.");
+            return;
+        }
+        ChatClient.changePassword(jPasswordField1.getText());
     }//GEN-LAST:event_ChangePassActionPerformed
 
 
