@@ -46,8 +46,4 @@ public class Validator {
             return false;
     }
     
-    public static void main(String[] args) {
-        String let = "Aldo#";
-        System.out.println(UserNameValidate(let));
-    }
 }

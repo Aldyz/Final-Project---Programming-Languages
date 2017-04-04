@@ -29,11 +29,6 @@ public class AudioFile implements Runnable{
             System.out.println(e.getMessage());
         }
     }
-    
-    public static void main(String[] args){
-        Thread t = new Thread(new AudioFile());
-        t.start();
-    }
        
 
 }

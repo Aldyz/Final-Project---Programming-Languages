@@ -5,8 +5,6 @@
  */
 package Database;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +19,7 @@ public class ListHandler {
     
     protected static void setList(ArrayList<String> list, String name, String file){
         try{
-            FileWriter fw = new FileWriter(file + "\\" + name + ".txt", false);
+            FileWriter fw = new FileWriter(file + "\\" + name + ".txt",false);
             PrintWriter pw = new PrintWriter(fw);
             for(int i = 0; i < list.size(); i++){
                 pw.println(list.get(i));

@@ -5,7 +5,6 @@
  */
 package network;
 
-import GUI.LoginForm;
 import java.io.IOException;
 import java.net.Socket;
 import java.io.DataInputStream;
@@ -25,9 +24,23 @@ public class ChatClient {
     private static String IP;
     private static String name;
     public static byte[] arr;;
+    private static ClientThread ct;
 
     public static String getName() {
         return name;
+    }
+    
+    public static void stopThread(){
+        ct.stop();
+    }
+    
+    public static void logOut(){
+        try{
+            ou.writeUTF("LOGOUT ");
+            ou.flush();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void setName(String name) {
@@ -138,7 +151,7 @@ public class ChatClient {
     
     public static void startThread(){
         try{
-            ClientThread ct = new ClientThread(s);
+            ct = new ClientThread(s);
             Thread ts = new Thread(ct);
             ts.start();
         }catch(IOException e){
@@ -203,18 +216,16 @@ public class ChatClient {
         }
     }
     
-    public static boolean getRegistration(String name, String password){
+    public static void getRegistration(String name, String password){
         if(ou == null)
-            return false;
+            return;
         
         try{
             ou.writeUTF("SIGNUP " + name + " " + password);
             ou.flush();
-            return in.readBoolean();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-        return false;
     }
     
     

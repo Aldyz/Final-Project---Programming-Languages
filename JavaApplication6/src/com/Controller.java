@@ -7,6 +7,7 @@ package com;
 
 import GUI.FriendsForm;
 import GUI.LoginForm;
+import GUI.SignUpForm;
 import network.ChatClient;
 
 /**
@@ -17,12 +18,12 @@ public class Controller {
     
     static FriendsForm ff;
     static LoginForm lf;
+    static SignUpForm suf;
     
     public Controller(){
         setLooksandFeel();
-        ChatClient c = ChatClient.getInstance();
         ChatClient.setIP();
-        c.Connect();
+        ChatClient.Connect();
         lf = new LoginForm();
         ChatClient.startThread();
     }
@@ -35,6 +36,16 @@ public class Controller {
     
     public static void logOut(){
         ff.dispose();
+        lf = new LoginForm();
+    }
+    
+    public static void signUp(){
+        lf.dispose();
+        suf = new SignUpForm();
+    }
+    
+    public static void signUptoLogin(){
+        suf.dispose();
         lf = new LoginForm();
     }
     

@@ -44,10 +44,4 @@ public class RememberMe {
         return remember;
     }
     
-    public static void main(String[] args) {
-        RememberLogin("Aldi", "123");
-        String[] array = getRememberMe();
-        System.out.println(array[0]);
-        System.out.println(array[1]);
-    }
 }

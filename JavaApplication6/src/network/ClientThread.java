@@ -27,21 +27,26 @@ public class ClientThread implements Runnable{
     private DataInputStream in;
     private String friendTemp;
     public static boolean loadingFlag;
+    public volatile boolean flag = false;
     
     public ClientThread(Socket s) throws IOException{
         in = new DataInputStream(s.getInputStream());
         loadingFlag = false;
     }
     
+    public void stop(){
+        flag = true;
+    }
+    
     @Override
     public void run() {
         try{
             String array[];
-            while(true){
+            while(!false){
                 input = ChatClient.in.readUTF();
                 array = input.split(" ");
                 System.out.println(input);
-                if(input.startsWith("SIGNINRSLT")){
+                if(input.startsWith("SIGNINRSLT ")){
                     
                     if(Boolean.parseBoolean(array[1])){
                         Controller.signInAccept();
@@ -50,7 +55,20 @@ public class ClientThread implements Runnable{
                         LoginForm.enableAll();
                     }
                     
-                }else if(input.startsWith("RECEIVEMSG")){
+                }else if(input.startsWith("SIGNINRSLTMSG ")){
+                    
+                    JOptionPane.showMessageDialog(null, input.substring(array[0].length()+1));
+                    LoginForm.enableAll();
+                    
+                }else if(input.startsWith("SIGNUPRSLT ")){
+                    
+                    if(Boolean.parseBoolean(array[1])){
+                      Controller.signUptoLogin();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Username is used");
+                    }
+                    
+                }else if(input.startsWith("RECEIVEMSG ")){
                     
                     String msg = array[1] + ": "+input.substring(array[0].length() + array[1].length() + 2);
                     new Thread(new AudioFile()).start();
@@ -67,30 +85,30 @@ public class ClientThread implements Runnable{
                         ChatHistoryHandler.addHistory(array[1], msg);
                     }
                     
-                }else if(input.startsWith("SRESULT")){
+                }else if(input.startsWith("SRESULT ")){
                     
                     if(Boolean.parseBoolean(array[1]))
                         FriendsForm.searchBtn();
                     else
                         FriendsForm.showMessage("Username does not Exist");
                     
-                }else if(input.startsWith("SADDED")){
+                }else if(input.startsWith("SADDED ")){
                     
                     if(Boolean.parseBoolean(array[1]))
                         FriendsForm.addFriend();
                     else
                         FriendsForm.showMessage("User already in friend list");
                 
-                }else if(input.startsWith("UPDATEFL")){
+                }else if(input.startsWith("UPDATEFL ")){
                     
                     FriendsForm.addFriend(array[1]);
                 
-                }else if(input.startsWith("FILENOTIF")){
+                }else if(input.startsWith("FILENOTIF ")){
                     
                     FriendsForm.getFTNotification(input.substring(array[0].length() + 3 + array[1].length() + array[2].length()), array[1]);
                     friendTemp = array[1];
                 
-                }else if(input.startsWith("FILECONFIRM")){
+                }else if(input.startsWith("FILECONFIRM ")){
                     
                     if(Boolean.parseBoolean(array[1]) && LoadingForm.loadingFlag /*&& LoadingForm.loadingFlag*/){
                         System.out.println("Sending Data");
@@ -100,7 +118,7 @@ public class ClientThread implements Runnable{
                         LoadingForm.fileSentDecline();
                     }
                 
-                }else if(input.startsWith("SENDFILE")){
+                }else if(input.startsWith("SENDFILE ")){
                     
                     FileOutputStream fou = new FileOutputStream(new File("SentFiles\\" + input.substring(array[0].length() + 2 + array[1].length())));
                     byte arr[] = new byte[Integer.parseInt(array[1])];

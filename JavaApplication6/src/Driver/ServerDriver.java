@@ -6,8 +6,6 @@
 package Driver;
 
 import Database.DatabaseFunction;
-import java.util.Timer;
-import java.util.TimerTask;
 import network.ChatServer;
 
 /**

@@ -8,13 +8,11 @@ package network;
 import Database.BlockListHandler;
 import Database.DatabaseFunction;
 import Database.FriendListHandler;
-import GUI.LoginForm;
 import com.ConnectedUser;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Lenovo
@@ -46,9 +44,15 @@ public class ClientHandler implements Runnable{
             while(true){
                 input = in.readUTF();
                 String array[] = input.split(" ");
-                System.out.println(input);
                 
-                if(input.startsWith("SIGNIN")){
+                if(input.startsWith("SIGNIN ")){
+                    
+                    int index = ChatServer.userExist(array[1]);
+                    
+                    if(index!=-1){
+                        ou.writeUTF("SIGNINRSLTMSG Someone is currently using the account.");
+                        continue;
+                    }
                     
                     boolean check = DatabaseFunction.SignInChecker(array[1], array[2]);
                     ou.writeUTF("SIGNINRSLT " + check);
@@ -68,7 +72,7 @@ public class ClientHandler implements Runnable{
                          System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " failed  to sign in.");
                     }
                     
-                }else if(input.startsWith("SIGNUP")){
+                }else if(input.startsWith("SIGNUP ")){
                     
                     boolean check = DatabaseFunction.SignUpChecker(array[1]);
                     if(check){
@@ -76,7 +80,7 @@ public class ClientHandler implements Runnable{
                         FriendListHandler.createFriendList(array[1]);
                         BlockListHandler.createBlockList(array[1]);
                     }
-                    ou.writeBoolean(check);
+                    ou.writeUTF("SIGNUPRSLT " + check);
                     ou.flush();
                     System.out.println(s.getInetAddress().getHostName() + "::" + s.getInetAddress().getHostAddress() + " signed up.");
                     
@@ -89,7 +93,7 @@ public class ClientHandler implements Runnable{
                         ChatServer.Connected.get(index).sendMsg(user.getName(), input.substring(array[0].length() + array[1].length() + 2));
                     }
                         
-                }else if(input.startsWith("ADD")){
+                }else if(input.startsWith("ADD ")){
                     
                     boolean check = FriendListHandler.checkFriendExist(user.getName(), array[1]);
                     check = !check;
@@ -101,18 +105,18 @@ public class ClientHandler implements Runnable{
                     ou.writeUTF("SADDED " + check);
                     ou.flush();
                     
-                }else if(input.startsWith("SEARCH")){
+                }else if(input.startsWith("SEARCH ")){
                     
                     boolean check = DatabaseFunction.userCheck(array[1]);
                     ou.writeUTF("SRESULT " + check);
                     ou.flush();
                     
-                }else if(input.startsWith("BLOCK")){
+                }else if(input.startsWith("BLOCK ")){
                     
                     user.addBlocked(array[1]);
                     BlockListHandler.addBlockList(user.getName(), array[1]);
                     
-                }else if(input.startsWith("UNBLOCK")){
+                }else if(input.startsWith("UNBLOCK ")){
                     
                     user.removeBlocked(array[1]);
                     BlockListHandler.setBlockList(user.getBlocked(), user.getName());
@@ -126,14 +130,14 @@ public class ClientHandler implements Runnable{
                         ChatServer.Connected.get(index).sendFileNotification(user.getName(), input.substring(array[0].length() + 3 + array[1].length() + array[2].length()), Integer.parseInt(array[2]));
                     }
                     
-                }else if(input.startsWith("FILESENDCONFIRM")){
+                }else if(input.startsWith("FILESENDCONFIRM ")){
                     
                     int index = ChatServer.userExist(array[1]);
                     if(index != -1){
                         ChatServer.Connected.get(index).sendFileConfirmation(Boolean.parseBoolean(array[2]));
                     }
                     
-                }else if(input.startsWith("SENDFILE")){
+                }else if(input.startsWith("SENDFILE ")){
                     
                     int index = ChatServer.userExist(array[1]);
                     System.out.println(ChatServer.Connected.get(index).getName());
@@ -143,15 +147,17 @@ public class ClientHandler implements Runnable{
                         ChatServer.Connected.get(index).sendFile(arr, Integer.parseInt(array[2]),input.substring(array[0].length() + 3 + array[1].length() + array[2].length()));
                     }
                     
-                }else if(input.startsWith("UPDATEPASSWORD")){
+                }else if(input.startsWith("UPDATEPASSWORD ")){
                     
                     DatabaseFunction.Update(array[1], user.getName());
                     
-                }else if(input.startsWith("DELETEFRIEND")){
+                }else if(input.startsWith("DELETEFRIEND ")){
                     
-                    user.removeBlocked(array[1]);
+                    user.removeFriend(array[1]);
                     FriendListHandler.setFriendList(user.getFriends(), user.getName());
                     
+                }else if(input.startsWith("LOGOUT ")){
+                    ChatServer.Connected.remove(user);
                 }
                 
                 Thread.sleep(1000);

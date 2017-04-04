@@ -30,7 +30,7 @@ public class LoadingForm extends javax.swing.JDialog {
     }
     
     public static void fileSentConfirm(){
-        jLabel2.setText("File Sent!");
+        jLabel2.setText("File Sent!       ");
         Toolkit.getDefaultToolkit().beep();
         jLabel1.setVisible(false);
         jButton1.setText("OK");
@@ -64,10 +64,9 @@ public class LoadingForm extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/progress.BAK-FOURTH.gif"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Monotype Corsiva", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel2.setText("Waiting For Confirmation");
 
-        jButton1.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         jButton1.setText("Cancel");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +82,7 @@ public class LoadingForm extends javax.swing.JDialog {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -99,7 +98,7 @@ public class LoadingForm extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -120,12 +119,6 @@ public class LoadingForm extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_flagOff
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new LoadingForm(null, true);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton jButton1;

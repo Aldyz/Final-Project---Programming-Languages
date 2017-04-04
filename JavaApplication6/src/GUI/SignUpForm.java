@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.Controller;
 import javax.swing.JOptionPane;
 import network.ChatClient;
 import com.Validator;
@@ -41,19 +42,20 @@ public class SignUpForm extends javax.swing.JFrame {
         lblWelcome = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         txtConfirmPassword = new javax.swing.JPasswordField();
+        bttnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        txtUsername.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblUsername.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblUsername.setText("UserName");
 
-        lblPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblPassword.setText("Password");
 
-        btnConfirm.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        btnConfirm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,16 +63,19 @@ public class SignUpForm extends javax.swing.JFrame {
             }
         });
 
-        lblConfirmPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        lblConfirmPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblConfirmPassword.setText("Confirm Password");
 
         lblWelcome.setFont(new java.awt.Font("Brush Script MT", 0, 60)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(128, 49, 0));
         lblWelcome.setText("WELCOME");
 
-        txtPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
-
-        txtConfirmPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        bttnCancel.setText("Cancel");
+        bttnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,11 +99,14 @@ public class SignUpForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtUsername)
                             .addComponent(txtPassword)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnConfirm)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtConfirmPassword))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(btnConfirm)
+                .addGap(18, 18, 18)
+                .addComponent(bttnCancel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,9 +125,11 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblConfirmPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(btnConfirm)
-                .addGap(29, 29, 29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirm)
+                    .addComponent(bttnCancel))
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -163,57 +173,18 @@ public class SignUpForm extends javax.swing.JFrame {
             return;
         }
         
-        boolean flag = ChatClient.getRegistration(txtUsername.getText(), txtPassword.getText());
-        if(flag){
-            new LoginForm();
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "Username or Email is already in use");
-        }
+        ChatClient.getRegistration(txtUsername.getText(), txtPassword.getText());
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new SignUpForm().setVisible(true);
-//            }
-//        });
-//    }
-    
-    public static void main(String[] args) {
-        String w = "Ha";
-        System.out.println(w.trim().contains(" "));
-    }
+    private void bttnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCancelActionPerformed
+        // TODO add your handling code here:
+        Controller.signUptoLogin();
+    }//GEN-LAST:event_bttnCancelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton bttnCancel;
     private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;

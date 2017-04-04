@@ -1,4 +1,0 @@
-Lawrence: Hello
-veronika: Hi
-Lawrence: ...!
-veronika: Testing
