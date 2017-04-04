@@ -18,8 +18,8 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import java.net.Socket;
 /**
- *
- * @author Lenovo
+ * this class is used to handle the client's request
+ * @author Aldi, Vero, Vincent
  */
 public class ClientThread implements Runnable{
     
@@ -29,15 +29,32 @@ public class ClientThread implements Runnable{
     public static boolean loadingFlag;
     public volatile boolean flag = false;
     
+    /**
+     * this method is used to create new data input stream which accept input 
+     * stream from a certain client
+     * @param s the client's socket
+     * @throws IOException 
+     */
     public ClientThread(Socket s) throws IOException{
         in = new DataInputStream(s.getInputStream());
         loadingFlag = false;
     }
     
+    /**
+     * this method is called in ChatClient class and 
+     * used to stop the client thread
+     */
     public void stop(){
         flag = true;
     }
     
+    /**
+     * this method is override method from runable class which function is to 
+     * run whenever class Thread use this object as its parameter and call the 
+     * start function
+     * this method will always check for client request and run the function 
+     * within the request
+     */
     @Override
     public void run() {
         try{

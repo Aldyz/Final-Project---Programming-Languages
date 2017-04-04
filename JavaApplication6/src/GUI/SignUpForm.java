@@ -11,8 +11,8 @@ import network.ChatClient;
 import com.Validator;
 
 /**
- *
- * @author user
+ * this class handle the user when it tries to sign up
+ * @author Aldi, Vero, Vincent
  */
 public class SignUpForm extends javax.swing.JFrame {
 
@@ -140,6 +140,10 @@ public class SignUpForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * this method is used to save the client data that has successfully signed in
+     * @param evt clicked mouse input
+     */
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
         boolean length1 = Validator.isEmpty(txtUsername.getText());
@@ -181,6 +185,10 @@ public class SignUpForm extends javax.swing.JFrame {
         ChatClient.getRegistration(txtUsername.getText(), txtPassword.getText());
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    /**
+     * this method allows the user to go back to the login form if the sign up is canceled
+     * @param evt 
+     */
     private void bttnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCancelActionPerformed
         // TODO add your handling code here:
         Controller.signUptoLogin();

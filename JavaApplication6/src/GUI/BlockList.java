@@ -9,12 +9,14 @@ import javax.swing.DefaultListModel;
 import network.ChatClient;
 
 /**
- *
- * @author Lenovo
+ * This class is used to show the users blocked list and allow the user to unblock them
+ * @author Aldi, Vero, Vincent
  */
 public class BlockList extends javax.swing.JDialog {
 
+    //this variable is used as a model to set the user blocked friends on jBlockedList
     public static DefaultListModel<String> blocked;
+    
     /**
      * Creates new form BlockList
      */
@@ -26,10 +28,17 @@ public class BlockList extends javax.swing.JDialog {
         this.setVisible(true);
     }
     
+    /**
+     * this constructor is called when Blocklist object is created and creates 
+     * new default list model of the blocked friend list
+     */
     public BlockList(){
         blocked = new DefaultListModel<String>();
     }
     
+    /**
+     * this function is used to set the jBlockedList using the blocked default list model
+     */
     public void setList(){
         jBlockedList.setModel(blocked);
     }
@@ -88,6 +97,11 @@ public class BlockList extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * this method is used to remove the selexted block user from 
+     * JBlockedList and put it on the JFriendList
+     * @param evt mouse clicked input
+     */
     private void bttnUnblockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnUnblockActionPerformed
         // TODO add your handling code here:
         ChatClient.unblockUser(jBlockedList.getSelectedValue());

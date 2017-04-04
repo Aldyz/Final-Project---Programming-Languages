@@ -40,9 +40,11 @@ public class LoginForm extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    
-    
-    
+    /**
+     * this method is used to get array of string from utilities class get 
+     * remember me function, set the txt name using the first string in array, 
+     * set the password field using the second string in the array
+     */
     public void setRememberMe(){
         String array[] = RememberMe.getRememberMe();
         txtName.setText(array[0]);
@@ -51,6 +53,10 @@ public class LoginForm extends javax.swing.JFrame {
             chBoxRemember.setSelected(true);
     }
     
+    /**
+     * this method is used to get the file using relative path, then the file 
+     * is resized and set as the login form logo
+     */
     public void setImage(){
         //setting the logo
         try{
@@ -66,6 +72,9 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * this method is used to disable all the components when sign in is successful
+     */
     public void disableAll(){
         txtName.setEnabled(false);
         fldPassword.setEnabled(false);
@@ -75,6 +84,9 @@ public class LoginForm extends javax.swing.JFrame {
         chBoxRemember.setEnabled(false);
     }
     
+    /**
+     * this method is used to enable all the components
+     */
     public static void enableAll(){
         txtName.setEnabled(true);
         fldPassword.setEnabled(true);
@@ -84,6 +96,12 @@ public class LoginForm extends javax.swing.JFrame {
         chBoxRemember.setEnabled(true);
     }
     
+    /**
+     * this method is used to check whether the remember me check box is selected or not
+     * if it checked then it calls the rememberLogin function from RememberMe 
+     * class and set the name and password
+     * else it calls the same function but set it to empty string
+     */
     public void rememberMe(){
             if(chBoxRemember.isSelected()){
                 RememberMe.RememberLogin(txtName.getText(), fldPassword.getText());
@@ -93,6 +111,11 @@ public class LoginForm extends javax.swing.JFrame {
         
     }
     
+    /**
+     * this function is used to check whether the name text field and the 
+     * password field is empty or not
+     * then it check whether the input is right or not
+     */
     public void signIn(){
         
         rememberMe();
@@ -130,6 +153,7 @@ public class LoginForm extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(240, 240));
         setResizable(false);
 
+        btnLogin.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +161,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        btnSignUp.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnSignUp.setText("SignUp");
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,10 +169,10 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         lblUsername.setText("UserName");
 
-        lblPassword.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
         lblPassword.setText("Password");
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -156,8 +181,10 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        chBoxRemember.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         chBoxRemember.setText("Remember me");
 
+        btnIp.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnIp.setText("IP Address");
         btnIp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +233,7 @@ public class LoginForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,21 +256,37 @@ public class LoginForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * this method is used to call the sign in form frame
+     * @param evt 
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // if the login failed
         signIn();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    /**
+     * this method is used to call the sign up frame
+     * @param evt clicked mouse input
+     */
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         //exit from the program
         Controller.signUp();
     }//GEN-LAST:event_btnSignUpActionPerformed
 
+    /**
+     * @param evt clicked mouse input
+     */
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
         signIn();
     }//GEN-LAST:event_txtNameActionPerformed
 
+    /**
+     * this function is used to call the set ip function from chat client to 
+     * get the ip address and connect to the server socket
+     * @param evt clicked mouse input
+     */
     private void btnIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIpActionPerformed
         //Show new window to input the IP and get the IP Addess
         ChatClient.stopThread();

@@ -8,8 +8,8 @@ package Driver;
 import com.Controller;
 
 /**
- *
- * @author Lenovo
+ * This class is used to connect to the server and allow the client to use the chat app
+ * @author Aldi, Vero, Vincent
  */
 public class ClientDriver {
     

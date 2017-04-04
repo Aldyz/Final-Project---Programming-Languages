@@ -12,10 +12,16 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 
 /**
- *
- * @author USER
+ * this class is used for remembering the user's name and password
+ * @author Aldi, Vero, Vincent
  */
 public class RememberMe {
+    
+    /**
+     * this method is used to write the user name and password to the remember me txt file
+     * @param name username from log in form
+     * @param pass user's password from login form
+     */
     public static void RememberLogin(String name, String pass){
         try{
             FileWriter fw = new FileWriter("RememberMe.txt");
@@ -29,6 +35,10 @@ public class RememberMe {
         }
     }
     
+    /**
+     * this method is used to get the name and password from the remember me txt file
+     * @return array of string consist of username and password
+     */
     public static String[] getRememberMe(){
         String[] remember = new String[2];
         try{

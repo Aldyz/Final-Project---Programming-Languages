@@ -32,8 +32,9 @@ import javafx.scene.media.MediaPlayer;
 import sun.audio.*;
 
 /**
- *
- * @author user
+ * This class is used as the main feature (chatting application) 
+ * and provide several features
+ * @author Aldi, Vero, Vincent
  */
 public class FriendsForm extends javax.swing.JFrame {
 
@@ -57,6 +58,9 @@ public class FriendsForm extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
+    /**
+     * this method is used to disable all the button and text field
+     */
     public void disableAll(){
         txtChatField.setEnabled(false);
         btnBlock.setEnabled(false);
@@ -67,6 +71,10 @@ public class FriendsForm extends javax.swing.JFrame {
         bttnDeleteFriend.setEnabled(false);
     }
     
+    /**
+     * this method is used to get friend list and block list from the server 
+     * and set it for later use
+     */
     public void setList(){
         String array[];
         String array2[];
@@ -87,6 +95,10 @@ public class FriendsForm extends javax.swing.JFrame {
         
     }
     
+    /**
+     * this method is used to get image form the project src folder and set the 
+     * logo in the add tab folder( add friends pane)
+     */
     public void setImage(){
         
         try{
@@ -103,11 +115,20 @@ public class FriendsForm extends javax.swing.JFrame {
         
     }
     
+    /**
+     * This method is used to reset the forms to the original condition
+     */
     public static void reset(){
         btnAdd.setEnabled(false);
         lblName.setText("");
     }
     
+    /**
+     * this method is used to append the message in the chat text field 
+     * and notify the friend that recieve the message
+     * @param name name of the message sender
+     * @param msg message that is sent
+     */
     public static void getMsg(String name,String msg){
         if(!JFriendList.getSelectedValue().startsWith(name)){
             for(int i = 0; i < friendsList.size(); i++){
@@ -121,6 +142,9 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * enable all the button and text field in friends form 
+     */
     public void enableAll(){
         ChatText.setEnabled(true);
         txtChatField.setEnabled(true);
@@ -134,11 +158,21 @@ public class FriendsForm extends javax.swing.JFrame {
         bttnDeleteFriend.setEnabled(true);
     }
     
-    
+    /**
+     * this method is used to get notification when a file is recieved
+     * @param name name of the file
+     * @param sender name of the sender
+     */
     public static void getFTNotification(String name, String sender){
         notificationList.addElement("File Transfer Request: " + name + ", From: " + sender);
     }
     
+    /**
+     * this method is used to get messages from the client and append it to the
+     * client chat text field then set the txt field back to empty string
+     * then the messages that are going to be sent added to client's chat history
+     * the messages are also sent to the other client
+     */
     public void sendMsg(){
         String msg =  txtChatField.getText() + "\n";
         if(msg.equals(""))
@@ -152,21 +186,36 @@ public class FriendsForm extends javax.swing.JFrame {
         ChatClient.sendMsg(JFriendList.getSelectedValue(), msg);
     }
     
-    
+    /**
+     * @return  the name of selected friend from jFriendList
+     */
     public static String getSelectedFList(){
         return JFriendList.getSelectedValue();
     }
     
-    
+    /**
+     * this method is used to show message in FriendsForm when the username 
+     * does not exist or the user already in friend list
+     * @param msg the error message that is passed
+     */
     public static void showMessage(String msg){
         JOptionPane.showMessageDialog(null, msg);
     }
     
+    /**
+     * this method is used to set the name of friends that want to be added if 
+     * the users exist and set he add button to enable
+     */
     public static void searchBtn(){
         lblName.setText(friendAdd);
         btnAdd.setEnabled(true);
     }
     
+    /**
+     * this method is used to add friend to default list model and create a new 
+     * file for the new friend's chat history
+     * @param name name of the friend
+     */
     public static void addFriend(String name){
         if(friendsList.size()>100){
             JOptionPane.showMessageDialog(null, "Friend List is already over limit.");
@@ -177,7 +226,10 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }
    
-    
+    /**
+     * this method is used to add friend to default list model and create new 
+     * file for the new friend's chat history
+     */
     public static void addFriend(){
         friendsList.addElement(friendAdd);
         JFriendList.setModel(friendsList);
@@ -528,6 +580,10 @@ public class FriendsForm extends javax.swing.JFrame {
             sendMsg();
     }//GEN-LAST:event_txtChatFieldActionPerformed
 
+    /**
+     * this method is used to show file chooser and lets the client choose a file
+     * @param evt clicked mouse input
+     */
     private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
         try{
             // TODO add your handling code here:
@@ -564,6 +620,11 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddFileActionPerformed
 
+    /**
+     * this method is used to set the chat field using the chat history's file
+     * from the server when a friend is selected
+     * @param evt clicked mouse input
+     */
     private void JFriendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JFriendListMouseClicked
         // TODO add your handling code here:
         if(JFriendList.getSelectedValue().equals("") || JFriendList.getSelectedValue() == null){
@@ -583,11 +644,21 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JFriendListMouseClicked
 
+    /**
+     * this method is used to add the friend that have been searched
+     * @param evt clicked mouse input
+     */
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         ChatClient.addFriend(friendAdd);
     }//GEN-LAST:event_btnAddActionPerformed
 
+    /**
+     * this method is used to block the selected user from jFriendList and ask 
+     * whether the client really wan tot block it or not
+     * if yes, then the user will be blocked and removed from the friend list
+     * @param evt clicked mouse input
+     */
     private void btnBlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlockActionPerformed
         // TODO add your handling code here:
         if(JFriendList.getSelectedValue() == null)
@@ -604,6 +675,11 @@ public class FriendsForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBlockActionPerformed
 
+    /**
+     * this method is used to search friend and if the searched one is ourselves
+     * or have been added or if you do not search anything it will show jOptionPan 
+     * @param evt clicked mouse input
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         friendAdd = txtId.getText();
@@ -626,27 +702,47 @@ public class FriendsForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    /**
+     * this method is used to show ProfileOpt frame
+     * @param evt clicked mouse input
+     */
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
         // TODO add your handling code here:
         new ProfileOpt(this, true);
     }//GEN-LAST:event_btnProfileActionPerformed
 
+    /**
+     * this method is used to send message
+     * @param evt clicked mouse input
+     */
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
             sendMsg();
     }//GEN-LAST:event_btnSendActionPerformed
 
+    /**
+     * this method is used to delete chat history from database and the chat area
+     * @param evt clicked mouse input
+     */
     private void bttDltChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttDltChatActionPerformed
         //  TODO add your handling code here:
         ChatHistoryHandler.clearHistory(JFriendList.getSelectedValue());
         ChatText.setText("");
     }//GEN-LAST:event_bttDltChatActionPerformed
 
+    /**
+     * this method is used to show the block list of friend that can be selected
+     * @param evt clicked mouse input
+     */
     private void btnUnblockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnblockActionPerformed
         // TODO add your handling code here:
         new BlockList(this, true);
     }//GEN-LAST:event_btnUnblockActionPerformed
 
+    /**
+     * this method allow the client to get the file sent from other user
+     * @param evt clicked mouse input
+     */
     private void jNotifListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNotifListMouseClicked
         // TODO add your handling code here:
         String array[] = jNotifList.getSelectedValue().split(" ");
@@ -662,12 +758,20 @@ public class FriendsForm extends javax.swing.JFrame {
         enableAll();
     }//GEN-LAST:event_jNotifListMouseClicked
 
+    /**
+     * this method is used to log out from the chat app and go back to the login form
+     * @param evt clicked mouse input
+     */
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         ChatClient.logOut();
         Controller.logOut();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    /**
+     * this method is used to delete friends from friend list
+     * @param evt clicked mouse input
+     */
     private void bttnDeleteFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDeleteFriendActionPerformed
         // TODO add your handling code here:
         if(JOptionPane.showConfirmDialog(this, "Are you sure you want delete?", "Delete Friend", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){

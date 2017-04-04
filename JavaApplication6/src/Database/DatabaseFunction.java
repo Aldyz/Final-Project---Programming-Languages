@@ -16,8 +16,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
- *
- * @author Vincent
+ * this class is used to Handles the functionality and the content of the 
+ * database, such as manipulating each row’s contents.
+ * @author Aldi, Vero, Vincent
  */
 public final class DatabaseFunction 
 {
@@ -31,14 +32,22 @@ public final class DatabaseFunction
     private static Connection connect;
     private static String query = "Select * from usersdata";
     
+    //default constructor
     private DatabaseFunction(){
         
     }
     
+    /**
+     * this method is used to create new database function object
+     * @return new database function object
+     */
     public static DatabaseFunction getInstance(){
         return new DatabaseFunction();
     }
     
+    /**
+     * this method is to refresh the result set content from database
+     */
     public static void refresh(){
         try{
             rs = stmt.executeQuery(query);
@@ -47,6 +56,11 @@ public final class DatabaseFunction
         }
     }
     
+    /**
+     * this method is used to insert new name, password, and email to the server database
+     * @param name new user's name that has signed up
+     * @param password new user's password that has signed up
+     */
     public static void Insert(String name, String password)
     {
             try
@@ -66,6 +80,11 @@ public final class DatabaseFunction
         
     }
     
+    /**
+     * this method is used to update the data in database
+     * @param password new user's password
+     * @param name user's name
+     */
     public static void Update(String password, String name)
     {   
         try
@@ -79,6 +98,9 @@ public final class DatabaseFunction
         }
     }
     
+    /**
+     * this method is used to close the connection to the database
+     */
     public void close(){
         try{
             rs.close();
@@ -89,6 +111,9 @@ public final class DatabaseFunction
         }
     }
     
+    /**
+     * this method is used to create a new connection to the database and get the data
+     */
     public static void Connect()
     {   
         try 
@@ -103,6 +128,11 @@ public final class DatabaseFunction
         }
     }
     
+    /**
+     * this method is used to check the data of the user that wants to create a new account
+     * @param name name of the client that wants to create a new account
+     * @return boolean true when there is no matching name
+     */
     public static boolean SignUpChecker(String name){
         
         try{
@@ -122,6 +152,12 @@ public final class DatabaseFunction
         return true;
     }
     
+    /**
+     * this method is used to check the name and password of user when the user is trying to be logged in
+     * @param name user's name
+     * @param pass user's password
+     * @return boolean true when the name and password are true
+     */
     public static boolean SignInChecker(String name, String pass)
     {
         try 
@@ -145,6 +181,11 @@ public final class DatabaseFunction
         return false;
     }
     
+    /**
+     * this method is used in client Handler class to search friends that wants to be added
+     * @param name the name of friends to be added
+     * @return boolean true when the name exist
+     */
     public static boolean userCheck(String name){
         try{
             PreparedStatement ps = connect.prepareStatement(query + " WHERE name = ?");

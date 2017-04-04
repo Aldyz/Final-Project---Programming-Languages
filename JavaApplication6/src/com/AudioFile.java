@@ -10,8 +10,8 @@ import java.net.URL;
 import sun.audio.*;
 
 /**
- *
- * @author Lenovo
+ * This class handle the audio related thing
+ * @author Aldi, Vero, Vincent
  */
 public class AudioFile implements Runnable{
 

@@ -6,10 +6,16 @@
 package com;
 
 /**
- *
- * @author USER
+ * This class is used to check whether the user's input are right or worng
+ * @author Aldi, Vero, Vincent
  */
 public class Validator {
+    
+    /**
+     * this method is used to validate the username
+     * @param name the client's username
+     * @return 
+     */
     public static boolean UserNameValidate(String name){
         char array[] = name.toCharArray();
         for(int i = 0; i<name.length(); i++){
@@ -25,6 +31,12 @@ public class Validator {
         return true;
     }
     
+    /**
+     * this method is used to check the length of user name and password
+     * @param word string to be counted
+     * @param count maximum characters that are allowed
+     * @return boolean true if the specification is satisfied
+     */
     public static boolean isOverCharLimit(String word, int count){
         if(word.length()>count){
             return true;

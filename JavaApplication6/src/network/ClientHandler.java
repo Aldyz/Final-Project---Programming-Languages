@@ -14,8 +14,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 /**
- *
- * @author Lenovo
+ * this class is used to handle the client's requests
+ * @author Aldi, Vero, Vincent
  */
 public class ClientHandler implements Runnable{
 
@@ -25,6 +25,11 @@ public class ClientHandler implements Runnable{
     DataOutputStream ou;
     ConnectedUser user;
     
+    /**
+     * this method is used to create new data output stream and new data inputstream for the client
+     * and set the client's socket
+     * @param s the client's sockets
+     */
     public ClientHandler(Socket s){
         this.s = s;
         try{
@@ -36,6 +41,13 @@ public class ClientHandler implements Runnable{
         }
     }
     
+    /**
+     * this method is override method from runable class which function is to 
+     * run whenever class Thread use this object as its parameter and call the 
+     * start function
+     * this method will always check for client request and run the function 
+     * within the request
+     */
     @Override
     public void run() {
         try{    

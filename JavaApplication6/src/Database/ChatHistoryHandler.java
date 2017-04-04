@@ -13,10 +13,16 @@ import java.io.IOException;
 import network.ChatClient;
 
 /**
- *
- * @author Lenovo
+ *this class is used to handle all of the friends chat history
+ * @author Aldi, Vero, Vincent
  */
 public class ChatHistoryHandler {
+    
+    /**
+     * this method is used to append friends chat history to server txt file
+     * @param friend the name of the friend whose message is going to be appended
+     * @param msg the message to be appended
+     */
     public static void addHistory(String friend, String msg){
         try{
             FileWriter fw = new FileWriter("ChatHistory\\" + ChatClient.getName() + "-" + friend + "History.txt", true);
@@ -29,6 +35,10 @@ public class ChatHistoryHandler {
         }
     }
     
+    /**
+     * this method is used to create new friends file chat history in the server
+     * @param friend name of user's friend
+     */
     public static void createHistory(String friend){
         try{
             FileWriter fw = new FileWriter("ChatHistory\\" + ChatClient.getName() + "-" + friend + "History.txt", true);
@@ -40,6 +50,11 @@ public class ChatHistoryHandler {
         }
     }
     
+    /**
+     * this method is used to open the friends file chat history and return it
+     * @param Friend friend's name whose chat history need to be returned
+     * @return return chat history
+     */
     public static String getHistory(String Friend){
         String chat = "";
         String check;
@@ -61,6 +76,10 @@ public class ChatHistoryHandler {
         return "";
     }
     
+    /**
+     * this method is used to clear friend's chat history in the server txt file
+     * @param Friend friends name whose chat history needs to be deleted
+     */
     public static void clearHistory(String Friend){
         try{
             FileWriter fw = new FileWriter("ChatHistory\\" + ChatClient.getName() + "-" + Friend + "History.txt", false);

@@ -13,8 +13,9 @@ import javax.swing.JOptionPane;
 import network.ChatClient;
 
 /**
- *
- * @author user
+ * This class is used to allow the user to see the Profile UI and to change 
+ * their password or to see the received file from other friends
+ * @author Aldi, Vero, Vincent
  */
 public class ProfileOpt extends javax.swing.JDialog {
 
@@ -54,12 +55,16 @@ public class ProfileOpt extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        lblPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblPassword.setText("Password");
 
+        lblRePassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblRePassword.setText("Re-type Password");
 
+        lblProfile.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblProfile.setText("PROFILE");
 
+        ChangePass.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         ChangePass.setText("Change Password");
         ChangePass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,8 +72,12 @@ public class ProfileOpt extends javax.swing.JDialog {
             }
         });
 
+        lblUser.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblUser.setText("User");
 
+        lblUsername.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+
+        openFolder.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         openFolder.setText("Open Sent Folder");
         openFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +102,7 @@ public class ProfileOpt extends javax.swing.JDialog {
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblUsername)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)))
+                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPasswordField2))))
@@ -112,7 +121,7 @@ public class ProfileOpt extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(lblProfile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
                     .addComponent(lblUser))
@@ -134,15 +143,23 @@ public class ProfileOpt extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * this method is used to open the folder where the received file is placed
+     * @param evt clicked mouse input
+     */
     private void openFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFolderActionPerformed
         // TODO add your handling code here:
         try{
-            Desktop.getDesktop().open(new File("C:\\Users\\Lenovo\\Documents\\Programming Languages\\Final Project\\Final-Project---Programming-Languages\\JavaApplication6\\SentFiles"));
+            Desktop.getDesktop().open(new File(".\\JavaApplication6\\SentFiles"));
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_openFolderActionPerformed
 
+    /**
+     * this method is used to change the user password
+     * @param evt clicked mouse input
+     */
     private void ChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePassActionPerformed
         // TODO add your handling code here:
         String newPass = jPasswordField1.getText();

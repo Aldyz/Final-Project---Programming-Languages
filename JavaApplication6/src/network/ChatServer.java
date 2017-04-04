@@ -11,20 +11,26 @@ import java.net.Socket;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
- *
- * @author Lenovo
+ * this class is used to start the server, handle client request, and check 
+ * whether the user exist or not
+ * @author Aldi, Vero, Vincent
  */
 public class ChatServer{
     
     private static final int port = 8000;
     public static ArrayList<ConnectedUser> Connected;
     private static ServerSocket ss;
-    
+   
+    /**
+     * this constructor is used to create new list of connected user
+     */
     public ChatServer(){
         Connected = new ArrayList<ConnectedUser>();
     }
     
-    
+    /**
+     * this method is used to create new server socket to handle the client's socket
+     */
     public void startServer(){
         System.out.println("Starting Server...");
         try
@@ -37,6 +43,10 @@ public class ChatServer{
             
     }
     
+    /**
+     * this method is used to check whether there are any clients that want to 
+     * connect and run the thread
+     */
     public void check(){
         while(true){
             try{
@@ -53,6 +63,13 @@ public class ChatServer{
         }
     }
     
+    /**
+     * this method is used to send user request that they want to update their 
+     * friend list
+     * @param user the name of client
+     * @param added the name of friends to be added
+     * @throws IOException 
+     */
     public static void UpdateFL(String user, String added)throws IOException{
         int index = userExist(user);
         if(index!=-1){
@@ -60,7 +77,11 @@ public class ChatServer{
         }
     }
     
-     
+     /**
+      * this method is used to check whether a user exist or not
+      * @param name name of the searched user
+      * @return return 1 if the user exist
+      */
      public static int userExist(String name){
          for(int i = 0; i < Connected.size(); i++){
              if(Connected.get(i).getName().equals(name))

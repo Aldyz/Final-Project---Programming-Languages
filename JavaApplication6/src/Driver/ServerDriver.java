@@ -9,8 +9,8 @@ import Database.DatabaseFunction;
 import network.ChatServer;
 
 /**
- *
- * @author Lenovo
+ * This class is used to start the server and allow the client to connect to the server
+ * @author Aldi, Vero, Vincent
  */
 public class ServerDriver {
     

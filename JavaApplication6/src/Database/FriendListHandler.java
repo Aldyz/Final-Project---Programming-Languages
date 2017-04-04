@@ -14,11 +14,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
- * @author Lenovo
+ * This class is used to handle and manage the client's friend list
+ * @author Aldi, Vero, Vincent
  */
 public class FriendListHandler extends ListHandler{
     
+    /**
+     * this method is used to check whether the friend that is searched to be added exist or not
+     * @param user the client's name
+     * @param friend the name of friends to be added
+     * @return boolean true if the friend already existed in the client friends list
+     */
     public static boolean checkFriendExist(String user, String friend){
         String check = "";
         try{
@@ -36,15 +42,29 @@ public class FriendListHandler extends ListHandler{
         return false;
     }
     
+    /**
+     * This method is used to set friend list on the data base txt file
+     * @param list the user's friend lsit
+     * @param user the name of the user
+     */
     public static void setFriendList(ArrayList<String> list, String user){
         setList(list, user + "FriendsList", "FriendsList");
     }
     
+    /**
+     * this method is used to append the added friend's name to the client friend list txt file
+     * @param user user client's name
+     * @param friend friend's name to be added 
+     */
     public static void addFriend(String user, String friend){
         insertList(user + "FriendsList", friend, "FriendsList");
         insertList(friend + "FriendsList", user, "FriendsList");
     }
     
+    /**
+     * This method is used to create new friend list txt file for client who has just signed up
+     * @param user client's name
+     */
     public static void createFriendList(String user){
         try{
             FileWriter fw = new FileWriter("FriendsList\\" + user + "FriendsList.txt");
@@ -56,6 +76,11 @@ public class FriendListHandler extends ListHandler{
         }
     }
         
+    /**
+     * This method is used to get user's friend list from server txt file
+     * @param user client's name
+     * @return friend list name
+     */
     public static String getFriendList(String user){
         String list = "";
         String check = "";
