@@ -47,15 +47,15 @@ public class SignUpForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
 
-        lblUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblUsername.setText("UserName");
 
-        lblPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblPassword.setText("Password");
 
-        btnConfirm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnConfirm.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,13 +63,18 @@ public class SignUpForm extends javax.swing.JFrame {
             }
         });
 
-        lblConfirmPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblConfirmPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         lblConfirmPassword.setText("Confirm Password");
 
         lblWelcome.setFont(new java.awt.Font("Brush Script MT", 0, 60)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(128, 49, 0));
         lblWelcome.setText("WELCOME");
 
+        txtPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+
+        txtConfirmPassword.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+
+        bttnCancel.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         bttnCancel.setText("Cancel");
         bttnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +130,7 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblConfirmPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm)
                     .addComponent(bttnCancel))

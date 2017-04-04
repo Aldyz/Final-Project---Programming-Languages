@@ -49,10 +49,12 @@ public class BlockList extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jBlockedList.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         jBlockedList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jBlockedList.setToolTipText("");
         jScrollPane1.setViewportView(jBlockedList);
 
+        bttnUnblock.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
         bttnUnblock.setText("Unblock");
         bttnUnblock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
