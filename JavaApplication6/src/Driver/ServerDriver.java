@@ -15,11 +15,14 @@ import network.ChatServer;
 public class ServerDriver {
     
     public static void main(String[] args) {
-        DatabaseFunction dbf = DatabaseFunction.getInstance();
-        dbf.Connect();
-        ChatServer s = new ChatServer();
-        s.startServer();
-        s.check();
+        
+        DatabaseFunction.setsURL("jdbc:mysql://localhost:3306/finalprojectoop");
+        DatabaseFunction.setsUser("root");
+        DatabaseFunction.setsPassword("");
+        DatabaseFunction.setTable("usersdata");
+        DatabaseFunction.Connect();
+        ChatServer.startServer();
+        ChatServer.check();
     }
     
 }

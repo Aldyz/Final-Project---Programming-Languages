@@ -22,19 +22,50 @@ import java.text.SimpleDateFormat;
  */
 public final class DatabaseFunction 
 {
-    private static String sURL = "jdbc:mysql://localhost:3306/finalprojectoop?zeroDateTimeBehavior=convertToNull";
-    private static String sUser = "root";
-    private static String sPassword = "";
     private static Statement stmt;
     private static ResultSet rs;
-    private static int nCurrentRow = 0;
-    private static int nCounter = 0;
     private static Connection connect;
-    private static String query = "Select * from usersdata";
+    private static String table;
+    private static String sURL;
+    private static String sUser;
+    private static String sPassword = "";
+    private static String query = "Select * from " + table;
     
     //default constructor
     private DatabaseFunction(){
         
+    }
+    
+    public static String getTable() {
+        return table;
+    }
+
+    public static void setTable(String table) {
+        DatabaseFunction.table = table;
+    }    
+
+    public static String getsURL() {
+        return sURL;
+    }
+
+    public static void setsURL(String sURL) {
+        DatabaseFunction.sURL = sURL;
+    }
+
+    public static String getsUser() {
+        return sUser;
+    }
+
+    public static void setsUser(String sUser) {
+        DatabaseFunction.sUser = sUser;
+    }
+
+    public static String getsPassword() {
+        return sPassword;
+    }
+
+    public static void setsPassword(String sPassword) {
+        DatabaseFunction.sPassword = sPassword;
     }
     
     /**

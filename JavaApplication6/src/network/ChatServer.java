@@ -31,7 +31,7 @@ public class ChatServer{
     /**
      * this method is used to create new server socket to handle the client's socket
      */
-    public void startServer(){
+    public static void startServer(){
         System.out.println("Starting Server...");
         try
         {
@@ -47,7 +47,7 @@ public class ChatServer{
      * this method is used to check whether there are any clients that want to 
      * connect and run the thread
      */
-    public void check(){
+    public static void check(){
         while(true){
             try{
             
